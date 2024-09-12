@@ -1,5 +1,5 @@
-public class App {
+public class Jott {
     public static void main(String[] args) throws Exception {
-        System.out.println("ethan was here");
+        System.out.println("Hello, World!");
     }
 }
