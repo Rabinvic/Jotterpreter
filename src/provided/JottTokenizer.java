@@ -25,13 +25,13 @@ public class JottTokenizer {
       try{
         FileReader JottFile = new FileReader(filename);
         BufferedReader readJott = new  BufferedReader(JottFile);
-        int first;
-        while((first = readJott.read()) != -1){
-          if((char)first == ','){
+        char first;
+        while((first = (char) readJott.read()) != -1){
+          if(first == ','){
             Token commaToken = new Token(",", filename, lineCount, TokenType.COMMA);
-          }else if((char)first == '\n'){
+          }else if(first == '\n'){
             lineCount++;
-          }else if((char)first == '#'){
+          }else if(first == '#'){
             while(((char)readJott.read()) != '\n'){
             }
             lineCount++;
