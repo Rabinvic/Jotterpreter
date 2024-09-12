@@ -7,6 +7,9 @@ package provided;
  **/
 
 import java.util.ArrayList;
+import java.io.BufferedReader; 
+import java.io.FileReader;
+import java.io.IOException; 
 
 public class JottTokenizer {
 
@@ -17,6 +20,31 @@ public class JottTokenizer {
      * @return an ArrayList of Jott Tokens
      */
     public static ArrayList<Token> tokenize(String filename){
+      ArrayList<Token> tokenizerOutput = new ArrayList<Token>();
+      int lineCount = 1;
+      try{
+        FileReader JottFile = new FileReader(filename);
+        BufferedReader readJott = new  BufferedReader(JottFile);
+        int first;
+        while((first = readJott.read()) != -1){
+          if((char)first == ','){
+            Token commaToken = new Token(",", filename, lineCount, TokenType.COMMA);
+          }else if((char)first == '\n'){
+            lineCount++;
+          }else if((char)first == '#'){
+            while(((char)readJott.read()) != '\n'){
+            }
+            lineCount++;
+          }
+        }
+      }catch(IOException e){
+        System.out.println(e);
+      }
+      
 		return null;
 	}
+  public static void start(BufferedReader readJott){
+    
+    
+  }
 }
