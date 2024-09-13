@@ -13,6 +13,8 @@ import java.io.IOException;
 
 public class JottTokenizer {
 
+    private static ArrayList<Token> tokenizerOutput;
+    private static int lineCount;
 	/**
      * Takes in a filename and tokenizes that file into Tokens
      * based on the rules of the Jott Language
@@ -20,31 +22,46 @@ public class JottTokenizer {
      * @return an ArrayList of Jott Tokens
      */
     public static ArrayList<Token> tokenize(String filename){
-      ArrayList<Token> tokenizerOutput = new ArrayList<Token>();
-      int lineCount = 1;
       try{
+        tokenizerOutput = new ArrayList<Token>();
+        lineCount = 1;
+        char first;
         FileReader JottFile = new FileReader(filename);
         BufferedReader readJott = new  BufferedReader(JottFile);
-        char first;
-        while((first = (char) readJott.read()) != -1){
+        while((first = (char)readJott.read()) != -1){
           if(first == ','){
-            Token commaToken = new Token(",", filename, lineCount, TokenType.COMMA);
+            oneCharacter(",", TokenType.COMMA, filename);
           }else if(first == '\n'){
             lineCount++;
           }else if(first == '#'){
-            while(((char)readJott.read()) != '\n'){
-            }
-            lineCount++;
+            handleNewLine(readJott);
+          } else if(first == '['){
+            oneCharacter("[", TokenType.L_BRACKET, filename);
+          } else if(first == ']'){
+            oneCharacter("]", TokenType.R_BRACKET, filename);
+          } else if(first == '{'){
+            oneCharacter("{", TokenType.L_BRACE, filename);
+          } else if(first == '}'){
+            oneCharacter("}", TokenType.R_BRACE, filename);
           }
         }
       }catch(IOException e){
         System.out.println(e);
       }
       
-		return null;
+		return tokenizerOutput;
 	}
-  public static void start(BufferedReader readJott){
-    
-    
+  public static void oneCharacter(String tokenString, TokenType theTokenType, String filename){
+    tokenizerOutput.add(new Token(tokenString, filename, lineCount, theTokenType));
+  }
+
+  public static void handleNewLine(BufferedReader readJott){
+    try{
+      while(((char)readJott.read()) != '\n'){
+      }
+      lineCount++;
+    } catch(IOException e){
+      System.out.println(e);
+    }
   }
 }
