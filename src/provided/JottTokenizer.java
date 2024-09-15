@@ -7,6 +7,8 @@ package provided;
  **/
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.BufferedReader; 
 import java.io.FileReader;
 import java.io.IOException; 
@@ -15,7 +17,18 @@ public class JottTokenizer {
 
     private static ArrayList<Token> tokenizerOutput;
     private static int lineCount;
-	/**
+    private static Set<Character> letters = new HashSet<>();
+    private static Set<Character> digits = new HashSet<>();
+    // Fill up the alphabet and digits sets
+    static {
+      for(char c = 'a'; c <= 'z'; c++)
+        letters.add(c);
+      for(char c = 'A'; c <= 'Z'; c++)
+        letters.add(c);
+      for(char c = '0'; c <= '9'; c++)
+        digits.add(c);
+    }
+	  /**
      * Takes in a filename and tokenizes that file into Tokens
      * based on the rules of the Jott Language
      * @param filename the name of the file to tokenize; can be relative or absolute path
@@ -25,10 +38,12 @@ public class JottTokenizer {
       try{
         tokenizerOutput = new ArrayList<Token>();
         lineCount = 1;
+        int firstInt;
         char first;
         FileReader JottFile = new FileReader(filename);
         BufferedReader readJott = new  BufferedReader(JottFile);
-        while((first = (char)readJott.read()) != -1){
+        while((firstInt = readJott.read()) != -1){
+          first = (char)firstInt;
           if(first == ','){
             oneCharacter(",", TokenType.COMMA, filename);
           }else if(first == '\n'){
@@ -43,6 +58,14 @@ public class JottTokenizer {
             oneCharacter("{", TokenType.L_BRACE, filename);
           } else if(first == '}'){
             oneCharacter("}", TokenType.R_BRACE, filename);
+          } else if(first == ';'){
+            oneCharacter(";", TokenType.SEMICOLON, filename);
+          } else if(first == '/'|| first == '+' || first == '-' || first == '*'){
+            oneCharacter(first + "", TokenType.MATH_OP, filename);
+          } else if(digits.contains(first) || first == '.'){
+            handleNumber(readJott, filename, first);
+          } else if(letters.contains(first)){
+            handleIdKeyword(readJott, filename, first);
           }
         }
       }catch(IOException e){
@@ -60,6 +83,46 @@ public class JottTokenizer {
       while(((char)readJott.read()) != '\n'){
       }
       lineCount++;
+    } catch(IOException e){
+      System.out.println(e);
+    }
+  }
+
+  public static void handleNumber(BufferedReader readJott, String filename, char latestChar){
+    try{
+      String tokenString = latestChar + "";
+      if(latestChar != '.'){ // If the first char is a digit, continually read until a non-digit is found
+        do {
+          latestChar = (char)readJott.read();
+          tokenString += latestChar;
+        } while(digits.contains(latestChar));
+      }
+      if(latestChar == '.'){ // If the number starts with or has a decimal point
+        do {
+        latestChar = (char)readJott.read();
+        tokenString += latestChar;
+        } while(digits.contains(latestChar));
+      }
+      if(latestChar == '\n') // If the number is at the end of the line
+        lineCount++;
+      tokenString = tokenString.substring(0, tokenString.length() - 1);
+      tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.NUMBER));
+    } catch(IOException e){
+      System.out.println(e);
+    }
+  }
+
+  public static void handleIdKeyword(BufferedReader readJott, String filename, char latestChar){
+    try{
+      String tokenString = latestChar + "";
+      do { // Continually read until a non-letter or non-digit is found
+        latestChar = (char)readJott.read();
+        tokenString += latestChar;
+      } while(letters.contains(latestChar) || digits.contains(latestChar));
+      if(latestChar == '\n') // If the id,keyword is at the end of the line
+        lineCount++;
+      tokenString = tokenString.substring(0, tokenString.length() - 1);
+      tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.ID_KEYWORD));
     } catch(IOException e){
       System.out.println(e);
     }
