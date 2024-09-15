@@ -71,6 +71,8 @@ public class JottTokenizer {
             } else {
               oneCharacter(":", TokenType.COLON, filename);
             }
+          } else if(first == '"'){
+            handleString(readJott, filename, first);
           } else if(digits.contains(first) || first == '.'){
             handleNumber(readJott, filename, first);
           } else if(letters.contains(first)){
@@ -127,11 +129,28 @@ public class JottTokenizer {
       do { // Continually read until a non-letter or non-digit is found
         latestChar = (char)readJott.read();
         tokenString += latestChar;
-      } while(letters.contains(latestChar) || digits.contains(latestChar));
+      } while(letters.contains(latestChar) || digits.contains(latestChar)); 
       if(latestChar == '\n') // If the id,keyword is at the end of the line
         lineCount++;
       tokenString = tokenString.substring(0, tokenString.length() - 1);
       tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.ID_KEYWORD));
+    } catch(IOException e){
+      System.out.println(e);
+    }
+  }
+
+  public static void handleString(BufferedReader readJott, String filename, char latestChar){
+    try{
+      String tokenString = latestChar + "";
+      do{
+        latestChar = (char)readJott.read();
+        tokenString += latestChar;
+      } while(latestChar != '\n' && latestChar != '"'); //keeps looking until new line or " are seen, adds all characters seen between " "
+      if (latestChar == '\n') { //if new line is found it is invalid syntax and an error is printed
+        System.err.println("Strings must be one line, expecting \" at end of line \n" + filename + ":" + lineCount);        
+      } else {
+        tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.STRING)); 
+      }
     } catch(IOException e){
       System.out.println(e);
     }
