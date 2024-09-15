@@ -65,6 +65,12 @@ public class JottTokenizer {
             oneCharacter(";", TokenType.SEMICOLON, filename);
           } else if(first == '/'|| first == '+' || first == '-' || first == '*'){
             oneCharacter(first + "", TokenType.MATH_OP, filename);
+          } else if(first == ':'){
+            if ((char)readJott.read() == ':') {
+              tokenizerOutput.add(new Token("::", filename, lineCount,  TokenType.FC_HEADER));
+            } else {
+              oneCharacter(":", TokenType.COLON, filename);
+            }
           } else if(digits.contains(first) || first == '.'){
             handleNumber(readJott, filename, first);
           } else if(letters.contains(first)){
