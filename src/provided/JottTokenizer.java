@@ -75,9 +75,11 @@ public class JottTokenizer {
               oneCharacter(":", TokenType.COLON, filename);
             }
           } else if(first == '=') {
+            readJott.mark(1);
             if((char)readJott.read() == '=') {
               tokenizerOutput.add(new Token("==", filename, lineCount, TokenType.REL_OP));
             } else {
+              readJott.reset();
               oneCharacter("=", TokenType.ASSIGN, filename);
             }
           } else if(first == '!') {
@@ -88,9 +90,11 @@ public class JottTokenizer {
               System.err.println("Syntax Error\nInvalid token \"!\". \"!\" expects following \"=\".\n" + filename + ":" + lineCount + "\n");
             }
           } else if(first == '<' || first == '>') {
+            readJott.mark(1);
             if((char)readJott.read() == '=') {
               tokenizerOutput.add(new Token(first + "=", filename, lineCount, TokenType.REL_OP));
             } else {
+              readJott.reset();
               oneCharacter(first + "", TokenType.REL_OP, filename);
             }
           } else if(first == '"'){
