@@ -105,9 +105,11 @@ public class JottTokenizer {
             handleIdKeyword(readJott, filename, first);
           }
         }
+        readJott.close();
       }catch(IOException e){
         System.out.println(e);
       }
+    
     if(errorFound) return null;
 		return tokenizerOutput;
 	}
