@@ -22,6 +22,7 @@ public class JottTokenizer {
     private static int lineCount;
     private static Set<Character> letters = new HashSet<>();
     private static Set<Character> digits = new HashSet<>();
+    private static Boolean nullify = false;
     // Fill up the alphabet and digits sets
     static {
       for(char c = 'a'; c <= 'z'; c++)
@@ -45,7 +46,7 @@ public class JottTokenizer {
         char first;
         FileReader JottFile = new FileReader(filename);
         BufferedReader readJott = new  BufferedReader(JottFile);
-        while((firstInt = readJott.read()) != -1){
+        while(((firstInt = readJott.read()) != -1) && !nullify){
           first = (char)firstInt;
           if(first == ','){
             oneCharacter(",", TokenType.COMMA, filename);
@@ -71,6 +72,25 @@ public class JottTokenizer {
             } else {
               oneCharacter(":", TokenType.COLON, filename);
             }
+          } else if(first == '=') {
+            if((char)readJott.read() == '=') {
+              tokenizerOutput.add(new Token("==", filename, lineCount, TokenType.REL_OP));
+            } else {
+              oneCharacter("=", TokenType.ASSIGN, filename);
+            }
+          } else if(first == '!') {
+            if((char)readJott.read() == '=') {
+              tokenizerOutput.add(new Token("!=", filename, lineCount, TokenType.REL_OP));
+            } else {
+              nullify = true;
+              System.err.println("Syntax Error\nInvalid token \"!\". \"!\" expects following \"=\".\n" + filename + ":" + lineCount + "\n");
+            }
+          } else if(first == '<' || first == '>') {
+            if((char)readJott.read() == '=') {
+              tokenizerOutput.add(new Token(first + "=", filename, lineCount, TokenType.REL_OP));
+            } else {
+              oneCharacter(first + "", TokenType.REL_OP, filename);
+            }
           } else if(first == '"'){
             handleString(readJott, filename, first);
           } else if(digits.contains(first) || first == '.'){
@@ -82,7 +102,7 @@ public class JottTokenizer {
       }catch(IOException e){
         System.out.println(e);
       }
-      
+    if(nullify) return null;
 		return tokenizerOutput;
 	}
   public static void oneCharacter(String tokenString, TokenType theTokenType, String filename){
