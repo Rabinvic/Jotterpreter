@@ -22,7 +22,7 @@ public class JottTokenizer {
     private static int lineCount;
     private static Set<Character> letters = new HashSet<>();
     private static Set<Character> digits = new HashSet<>();
-    private static Boolean nullify = false;
+    private static Boolean errorFound = false;
     // Fill up the alphabet and digits sets
     static {
       for(char c = 'a'; c <= 'z'; c++)
@@ -46,7 +46,7 @@ public class JottTokenizer {
         char first;
         FileReader JottFile = new FileReader(filename);
         BufferedReader readJott = new  BufferedReader(JottFile);
-        while(((firstInt = readJott.read()) != -1) && !nullify){
+        while(((firstInt = readJott.read()) != -1) && !errorFound){
           first = (char)firstInt;
           if(first == ','){
             oneCharacter(",", TokenType.COMMA, filename);
@@ -86,7 +86,7 @@ public class JottTokenizer {
             if((char)readJott.read() == '=') {
               tokenizerOutput.add(new Token("!=", filename, lineCount, TokenType.REL_OP));
             } else {
-              nullify = true;
+              errorFound = true;
               System.err.println("Syntax Error\nInvalid token \"!\". \"!\" expects following \"=\".\n" + filename + ":" + lineCount + "\n");
             }
           } else if(first == '<' || first == '>') {
@@ -108,7 +108,7 @@ public class JottTokenizer {
       }catch(IOException e){
         System.out.println(e);
       }
-    if(nullify) return null;
+    if(errorFound) return null;
 		return tokenizerOutput;
 	}
   public static void oneCharacter(String tokenString, TokenType theTokenType, String filename){
@@ -173,7 +173,7 @@ public class JottTokenizer {
         tokenString += latestChar;
       } while((digits.contains(latestChar) || letters.contains(latestChar) || latestChar == ' ' || latestChar == '\t') && latestChar != '\n' && latestChar != '"'); //keeps looking until new line or " are seen, adds all characters seen between " "
       if (latestChar == '\n') { //if new line is found it is invalid syntax and an error is printed
-        nullify = true;
+        errorFound = true;
         System.err.println("Strings must be one line, expecting \" at end of line \n" + filename + ":" + lineCount);  
               
       } else {
