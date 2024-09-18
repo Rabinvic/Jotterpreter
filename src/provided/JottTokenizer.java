@@ -130,21 +130,46 @@ public class JottTokenizer {
   public static void handleNumber(BufferedReader readJott, String filename, char latestChar){
     try{
       String tokenString = latestChar + "";
-      if(latestChar != '.'){ // If the first char is a digit, continually read until a non-digit is found
-        do {
-          latestChar = (char)readJott.read();
-          tokenString += latestChar;
-        } while(digits.contains(latestChar));
-      }
-      if(latestChar == '.'){ // If the number starts with or has a decimal point
-        do {
+      boolean digitSeen = false;
+      boolean dotSeen = false;
+
+      if (latestChar == '.')
+        dotSeen = true;
+      else
+        digitSeen = true;
+
+      while(true) {
+        readJott.mark(1);
         latestChar = (char)readJott.read();
-        tokenString += latestChar;
-        } while(digits.contains(latestChar));
+        if (digits.contains(latestChar)) { // if its a digit
+          tokenString += latestChar;
+          digitSeen = true;
+        } else if (latestChar == '.') { // if it's a decimal
+          if(!dotSeen) { // if its the first decimal you see
+            tokenString += latestChar;
+            dotSeen = true;
+          } else {
+            errorFound = true;
+            System.err.println("Numbers may only have one decimal point:" + filename + ":" + lineCount); 
+            readJott.reset(); 
+            return;
+          }
+          
+        } else { // if it's not a digit or decimal
+          readJott.reset();
+          break;
+        }
       }
+      if(!digitSeen) {
+        errorFound = true;
+        System.err.println("Standalone decimals must have a number afterwards:" + filename + ":" + lineCount);
+        return;
+      }
+
       if(latestChar == '\n') // If the number is at the end of the line
         lineCount++;
-      tokenString = tokenString.substring(0, tokenString.length() - 1);
+
+      readJott.reset();
       tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.NUMBER));
     } catch(IOException e){
       System.out.println(e);
@@ -154,13 +179,18 @@ public class JottTokenizer {
   public static void handleIdKeyword(BufferedReader readJott, String filename, char latestChar){
     try{
       String tokenString = latestChar + "";
-      do { // Continually read until a non-letter or non-digit is found
+      while(true) {
+        readJott.mark(1);
         latestChar = (char)readJott.read();
-        tokenString += latestChar;
-      } while(letters.contains(latestChar) || digits.contains(latestChar)); 
+        if (letters.contains(latestChar) || digits.contains(latestChar)) // if it's a letter or digit
+          tokenString += latestChar;
+        else { // if it's not a letter or digit
+          readJott.reset();
+          break;
+        }
+      }
       if(latestChar == '\n') // If the id,keyword is at the end of the line
         lineCount++;
-      tokenString = tokenString.substring(0, tokenString.length() - 1);
       tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.ID_KEYWORD));
     } catch(IOException e){
       System.out.println(e);
