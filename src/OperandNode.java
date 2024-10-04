@@ -11,7 +11,8 @@ public interface OperandNode extends JottTree{
     public void execute();
     public static OperandNode parseOperand(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
-            throw new IllegalArgumentException();
+            System.err.println("can't parse operand if no tokens");
+            return null;
         }
         if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
             return IDNode.parseIDNode(tokens);
@@ -27,7 +28,8 @@ public interface OperandNode extends JottTree{
             tokens.add(0, update);
             return NumberNode.parseNumberNode(tokens);       
         } else {
-            throw new IllegalArgumentException();
+            System.err.printf("Not an operand Node");
+            return null;
         }
     }
 }

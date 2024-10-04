@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-import provided.JottTree;
 import provided.Token;
 
 public class ParamsNode implements OperandNode{

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -17,13 +16,16 @@ public class IDNode implements OperandNode{
 
     public static IDNode parseIDNode(ArrayList<Token> tokens) {
         if (tokens.size() == 0) {
-            throw new IllegalArgumentException();
+            System.err.printf("can't parse IDNode because no tokens left");
+            return null;
         }
         if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-            throw new IllegalArgumentException();
+            System.err.printf("can't parse non id token as id node");
+            return null;
         }
         if (Character.isUpperCase(tokens.get(0).getToken().charAt(0))) {
-            throw new IllegalArgumentException();
+            System.err.printf("can't parse keyword as id node");
+            return null;
         }
         return new IDNode(tokens.remove(0));
     }

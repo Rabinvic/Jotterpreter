@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -13,10 +12,12 @@ public class NumberNode implements OperandNode{
 
     public static NumberNode parseNumberNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
-            throw new IllegalArgumentException();
+            System.err.printf("can't parse number node because no tokens left");
+            return null;
         }
         if(tokens.get(0).getTokenType() != TokenType.NUMBER) {
-            throw new IllegalArgumentException();
+            System.err.printf("can't parse number node if no number");
+            return null;
         }
         return new NumberNode(tokens.remove(0));
     }
