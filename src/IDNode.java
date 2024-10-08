@@ -16,15 +16,17 @@ public class IDNode implements OperandNode{
 
     public static IDNode parseIDNode(ArrayList<Token> tokens) {
         if (tokens.size() == 0) {
-            System.err.printf("can't parse IDNode because no tokens left");
+            System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
         if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-            System.err.printf("can't parse non id token as id node");
+            System.err.println("Syntax Error:\n missing id token\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
             return null;
         }
         if (Character.isUpperCase(tokens.get(0).getToken().charAt(0))) {
-            System.err.printf("can't parse keyword as id node");
+            System.err.println("Syntax Error:\n can't parse keyword as id node\n" + tokens.get(0).getFilename() + 
+            ":" + tokens.get(0).getLineNum() +"\n");
             return null;
         }
         return new IDNode(tokens.remove(0));

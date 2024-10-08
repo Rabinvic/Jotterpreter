@@ -17,23 +17,26 @@ public class FunctionCallNode implements OperandNode{
 
     public static FunctionCallNode parseFunctionCallNode(ArrayList<Token> tokens){
         if (tokens.size() == 0) {
-            System.err.println("can't parse if no tokens");
+            System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
         if (tokens.get(0).getTokenType() != TokenType.FC_HEADER) {
-            System.err.println("missing function header");
+            System.err.println("Syntax Error:\n missing function header\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
             return null;
         }
         tokens.remove(0);
         IDNode id = IDNode.parseIDNode(tokens);
         if(tokens.get(0).getTokenType() != TokenType.L_BRACKET) {
-            System.err.println("missing left bracket");
+            System.err.println("Syntax Error:\n missing left bracket\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
             return null;
         }
         tokens.remove(0);
         ParamsNode params = ParamsNode.parseParamsNode(tokens);
         if(tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
-            System.err.println("missing right bracket");
+            System.err.println("Syntax Error:\n missing right bracket\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
             return null;
         }
         tokens.remove(0);

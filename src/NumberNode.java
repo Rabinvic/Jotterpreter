@@ -12,11 +12,12 @@ public class NumberNode implements OperandNode{
 
     public static NumberNode parseNumberNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
-            System.err.printf("can't parse number node because no tokens left");
+            System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
         if(tokens.get(0).getTokenType() != TokenType.NUMBER) {
-            System.err.printf("can't parse number node if no number");
+            System.err.println("Syntax Error:\n missing number\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
             return null;
         }
         return new NumberNode(tokens.remove(0));
