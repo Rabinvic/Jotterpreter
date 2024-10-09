@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-public interface BoolNode extends JottTree {
+public interface BoolNode extends ExpressionNode {
     public static BoolNode parseBool(ArrayList<Token> tokens){
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

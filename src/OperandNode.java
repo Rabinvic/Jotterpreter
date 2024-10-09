@@ -1,11 +1,10 @@
 
 import java.util.ArrayList;
 
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-public interface OperandNode extends JottTree{
+public interface OperandNode extends ExpressionNode{
     public boolean validateTree();
     public String convertToJott();
     public void execute();
@@ -28,7 +27,7 @@ public interface OperandNode extends JottTree{
             tokens.add(0, update);
             return NumberNode.parseNumberNode(tokens);       
         } else {
-            System.err.println("Syntax Error:\n not an operand node\n" + tokens.get(0).getFilename() + ":" + 
+            System.err.println("Syntax Error:\n not an operand\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
