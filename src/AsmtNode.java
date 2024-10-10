@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
+import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-public class AsmtNode {
+public class AsmtNode implements JottTree{
     private IDNode id;
     private ExpressionNode expr;
 
@@ -30,6 +31,18 @@ public class AsmtNode {
 
         return new AsmtNode(id, expr);
 
+    }
+    
+    public String convertToJott() {
+        return this.id.convertToJott() + "=" + this.expr.convertToJott();
+    }
+    public boolean validateTree() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    }
+    public void execute() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'execute'");
     }
 
 }

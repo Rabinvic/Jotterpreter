@@ -4,9 +4,9 @@ import provided.TokenType;
 
 public class FunctionCallNode implements OperandNode{
     IDNode name;
-    ParamsNode params;
+    ParamsTNode params;
 
-    public FunctionCallNode(IDNode name, ParamsNode params) {
+    public FunctionCallNode(IDNode name, ParamsTNode params) {
         this.name = name;
         this.params = params;
     }
@@ -33,7 +33,7 @@ public class FunctionCallNode implements OperandNode{
             return null;
         }
         tokens.remove(0);
-        ParamsNode params = ParamsNode.parseParamsNode(tokens);
+        ParamsTNode params = ParamsTNode.parseParamsNode(tokens);
         if(tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
             System.err.println("Syntax Error:\n missing right bracket\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
