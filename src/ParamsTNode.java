@@ -24,7 +24,7 @@ public class ParamsTNode implements JottTree{
     }
     
     public static ParamsTNode parseParamsNode(ArrayList<Token> tokens) {
-        if(tokens.get(0).getTokenType() != TokenType.COLON){
+        if(tokens.get(0).getTokenType() != TokenType.COMMA){
             System.err.println("Syntax Error:\n missing comma\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
