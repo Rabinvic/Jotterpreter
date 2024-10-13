@@ -11,20 +11,39 @@ public interface ExpressionNode extends JottTree{
             return null;
         }
         if(tokens.get(0).getTokenType() == TokenType.STRING) {
-            return String_literalNode.parseString_literalNode(tokens);
+            String_literalNode tempStr = String_literalNode.parseString_literalNode(tokens);
+            if(tempStr == null) {
+                return null;
+            }
+            return tempStr;
         } else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && 
         (tokens.get(0).getToken() == "True" || tokens.get(0).getToken() == "False")) {
-            return BoolNode.parseBool(tokens);
-            //maybe get rid of
+            BoolNode tempBool = BoolNode.parseBool(tokens);
+            if(tempBool == null) {
+                return null;
+            }
+            return tempBool;
         } else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.NUMBER ||
         tokens.get(0).getTokenType() == TokenType.FC_HEADER || (tokens.get(0).getTokenType() == TokenType.MATH_OP && 
         tokens.get(0).getToken() == "-" && tokens.get(1).getTokenType() == TokenType.NUMBER)) {
             if(tokens.get(1).getTokenType() == TokenType.MATH_OP) {
-                return MathopNode.parseMathopNode(tokens);
+                MathopNode tempMath = MathopNode.parseMathopNode(tokens);
+                if(tempMath == null) {
+                    return null;
+                }
+                return tempMath;
             } else if(tokens.get(1).getTokenType() == TokenType.REL_OP) {
-                return RelopNode.parseRelopNode(tokens);
+                RelopNode tempRel = RelopNode.parseRelopNode(tokens);
+                if(tempRel == null) {
+                    return null;
+                }
+                return tempRel;
             } else {
-                return OperandNode.parseOperand(tokens);
+                OperandNode tempOp = OperandNode.parseOperand(tokens);
+                if(tempOp == null) {
+                    return null;
+                }
+                return tempOp;
             }   
         } else {
             System.err.println("Syntax Error:\n not an expression\n" + tokens.get(0).getFilename() + ":" + 

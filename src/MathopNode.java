@@ -21,6 +21,9 @@ public class MathopNode  implements ExpressionNode{
         }
 
         OperandNode leftOperand = OperandNode.parseOperand(tokens);
+        if(leftOperand == null) {
+            return null;
+        }
 
         if(tokens.get(0).getTokenType() != TokenType.MATH_OP) {
             System.err.println("Syntax Error:\n missing math operator\n" + tokens.get(0).getFilename() + ":" + 
@@ -28,8 +31,12 @@ public class MathopNode  implements ExpressionNode{
             return null;
         }
         Token math = tokens.remove(0);
+        OperandNode rightOperandNode = OperandNode.parseOperand(tokens);
+        if(rightOperandNode == null) {
+            return null;
+        }
 
-        return new MathopNode(leftOperand, math, OperandNode.parseOperand(tokens));
+        return new MathopNode(leftOperand, math, rightOperandNode);
     }
 
     public String convertToJott() {

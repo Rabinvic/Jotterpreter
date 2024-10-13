@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-import provided.JottTree;
+//import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-public class AsmtNode implements JottTree{
+public class AsmtNode implements Body_StmtNode{
     private IDNode id;
     private ExpressionNode expr;
 
@@ -12,7 +12,7 @@ public class AsmtNode implements JottTree{
         this.id = id;
         this.expr = expr;
     }
-    public static AsmtNode parseBool(ArrayList<Token> tokens){
+    public static AsmtNode parseAsmtNode(ArrayList<Token> tokens){
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;

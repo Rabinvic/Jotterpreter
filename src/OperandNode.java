@@ -13,18 +13,34 @@ public interface OperandNode extends ExpressionNode{
             return null;
         }
         if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
-            return IDNode.parseIDNode(tokens);
+            IDNode id = IDNode.parseIDNode(tokens);
+            if(id == null) {
+                return null;
+            }
+            return id;
         } else if(tokens.get(0).getTokenType() == TokenType.NUMBER) {
-            return NumberNode.parseNumberNode(tokens);
+            NumberNode num = NumberNode.parseNumberNode(tokens);
+            if(num == null) {
+                return null;
+            }
+            return num;
         } else if(tokens.get(0).getTokenType() == TokenType.FC_HEADER) {
-            return FunctionCallNode.parseFunctionCallNode(tokens);
+            FunctionCallNode func = FunctionCallNode.parseFunctionCallNode(tokens);
+            if(func == null) {
+                return null;
+            }
+            return func;
         } else if(tokens.get(0).getTokenType() == TokenType.MATH_OP && tokens.get(0).getToken() == "-" 
         && tokens.get(1).getTokenType() == TokenType.NUMBER) {
             Token update = new Token(tokens.get(0).getToken() + tokens.get(1).getToken(), tokens.get(0).getFilename(), tokens.get(0).getLineNum(), tokens.get(1).getTokenType());
             tokens.remove(0);
             tokens.remove(1);
             tokens.add(0, update);
-            return NumberNode.parseNumberNode(tokens);       
+            NumberNode num = NumberNode.parseNumberNode(tokens); 
+            if(num == null) {
+                return null;
+            } 
+            return num;     
         } else {
             System.err.println("Syntax Error:\n not an operand\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");

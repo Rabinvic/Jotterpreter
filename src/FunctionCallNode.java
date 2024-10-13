@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import provided.Token;
 import provided.TokenType;
 
-public class FunctionCallNode implements OperandNode{
+public class FunctionCallNode implements OperandNode, Body_StmtNode{
     IDNode name;
     ParamsTNode params;
 
@@ -27,6 +27,9 @@ public class FunctionCallNode implements OperandNode{
         }
         tokens.remove(0);
         IDNode id = IDNode.parseIDNode(tokens);
+        if(id == null) {
+            return null;
+        }
         if(tokens.get(0).getTokenType() != TokenType.L_BRACKET) {
             System.err.println("Syntax Error:\n missing left bracket\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
@@ -34,6 +37,9 @@ public class FunctionCallNode implements OperandNode{
         }
         tokens.remove(0);
         ParamsTNode params = ParamsTNode.parseParamsNode(tokens);
+        if(params == null) {
+            return null;
+        }
         if(tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
             System.err.println("Syntax Error:\n missing right bracket\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");

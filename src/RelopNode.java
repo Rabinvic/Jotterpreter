@@ -21,6 +21,9 @@ public class RelopNode  implements ExpressionNode{
         }
 
         OperandNode leftOperand = OperandNode.parseOperand(tokens);
+        if(leftOperand == null) {
+            return null;
+        }
 
         if(tokens.get(0).getTokenType() != TokenType.REL_OP) {
             System.err.println("Syntax Error:\n missing relational operator\n" + tokens.get(0).getFilename() + ":" + 
@@ -28,8 +31,11 @@ public class RelopNode  implements ExpressionNode{
             return null;
         }
         Token relation = tokens.remove(0);
-
-        return new RelopNode(leftOperand, relation, OperandNode.parseOperand(tokens));
+        OperandNode rightOperand = OperandNode.parseOperand(tokens);
+        if(rightOperand == null) {
+            return null;
+        }
+        return new RelopNode(leftOperand, relation, rightOperand);
     }
 
     public String convertToJott() {
