@@ -48,7 +48,7 @@ public class FunctionDefParamsT implements JottTree{
         tokens.remove(0);
         TypeNode type = TypeNode.parseTypeNode(tokens);
 
-        if (id == null) {
+        if (type == null) {
             return null;
         }
         
