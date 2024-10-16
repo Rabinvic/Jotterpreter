@@ -27,7 +27,7 @@ public interface Body_StmtNode  extends JottTree{
             }
             return tempWhile;
         } else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && 
-        Character.isUpperCase(tokens.get(0).getToken().charAt(0))) {
+        Character.isLowerCase(tokens.get(0).getToken().charAt(0))) {
             AsmtNode tempAs = AsmtNode.parseAsmtNode(tokens);
             if(tempAs == null) {
                 return null;
