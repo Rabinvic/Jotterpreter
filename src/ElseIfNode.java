@@ -72,7 +72,8 @@ public class ElseIfNode implements Body_StmtNode{
     }
 
     public String convertToJott(){
-        return "";
+        // Elseif[< expr >]{< body >}
+        return "Elseif[" + expr.convertToJott() + "]{" + body.convertToJott() + "}";
     }
     public boolean validateTree() {
         return true;

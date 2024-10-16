@@ -89,7 +89,13 @@ public class If_StmtNode implements Body_StmtNode{
     }
 
     public String convertToJott(){
-        return "";
+        // If[< expr >]{< body >}< elseif_lst >*< else >
+
+        String elseIfList = "";
+        for(ElseIfNode elseIf : elseIfs) {
+            elseIfList += elseIf.convertToJott();
+        }
+        return "If[" + expr.convertToJott() + "]{" + body.convertToJott() + "}" + elseIfList + els.convertToJott();
     }
     public boolean validateTree() {
         return true;
