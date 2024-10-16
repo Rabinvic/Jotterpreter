@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
-import provided.Token;
+import provided.*;
 
-public class ElseIf_StmtNode implements Body_StmtNode{
+public class ElseIfNode implements Body_StmtNode{
     private ExpressionNode expr;
     private BodyNode body;
 
-    public ElseIf_StmtNode(ExpressionNode expr, BodyNode body){
+    public ElseIfNode(ExpressionNode expr, BodyNode body){
         this.expr = expr;
         this.body = body;
     }
 
-    public static ElseIf_StmtNode parseElseIfStmtNode(ArrayList<Token> tokens) {
-        return new ElseIf_StmtNode(null, null);
+    public static ElseIfNode parseElseIfNode(ArrayList<Token> tokens) {
+        return new ElseIfNode(null, null);
     }
 
     public String convertToJott(){
