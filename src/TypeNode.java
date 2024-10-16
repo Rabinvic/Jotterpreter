@@ -9,7 +9,7 @@ public class TypeNode implements JottTree {
         this.type = type;
     }
 
-    public static TypeNode parseType(ArrayList<Token> tokens){
+    public static TypeNode parseTypeNode(ArrayList<Token> tokens){
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
