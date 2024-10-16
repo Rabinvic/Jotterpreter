@@ -4,11 +4,11 @@ import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-public class FunctionDefParamsT implements JottTree{
+public class FunctionDefParamsTNode implements JottTree{
     IDNode id;
     TypeNode type;
 
-    public FunctionDefParamsT(IDNode id, TypeNode type){
+    public FunctionDefParamsTNode(IDNode id, TypeNode type){
         this.id = id;
         this.type = type;
     }
@@ -25,7 +25,7 @@ public class FunctionDefParamsT implements JottTree{
 
     }
     
-    public static FunctionDefParamsT parseParamsNode(ArrayList<Token> tokens) {
+    public static FunctionDefParamsTNode parseFunctionDefParamsTNode(ArrayList<Token> tokens) {
         if(tokens.get(0).getTokenType() != TokenType.COMMA){
             System.err.println("Syntax Error:\n missing comma\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
@@ -52,7 +52,7 @@ public class FunctionDefParamsT implements JottTree{
             return null;
         }
         
-        return new FunctionDefParamsT(id, type);
+        return new FunctionDefParamsTNode(id, type);
     }
 
 }
