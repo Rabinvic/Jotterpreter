@@ -50,9 +50,6 @@ public class AsmtNode implements Body_StmtNode{
     }
     
     public String convertToJott() {
-        if(expr instanceof FunctionCallNode ){
-            return this.id.convertToJott() + "=" + this.expr.convertToJott();
-        }
         return this.id.convertToJott() + "=" + this.expr.convertToJott() + ";";
     }
     public boolean validateTree() {

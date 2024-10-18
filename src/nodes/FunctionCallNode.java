@@ -13,7 +13,7 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
     }
     
     public String convertToJott() {
-        return "::" + name.convertToJott() + "[" + params.convertToJott() + "];";
+        return "::" + name.convertToJott() + "[" + params.convertToJott() + "]";
     }
 
     public String convertToJottAlone(){

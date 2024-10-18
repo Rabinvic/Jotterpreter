@@ -57,6 +57,9 @@ public class BodyNode implements JottTree{
         }
         for(int i = 0; i < bodyStmts.size(); i++ ){
             str += bodyStmts.get(i).convertToJott();
+            if(bodyStmts.get(i) instanceof FunctionCallNode){
+                str += ";";
+            }
         }
         str += returnStmt.convertToJott();
         return str;
