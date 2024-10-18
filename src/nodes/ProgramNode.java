@@ -22,7 +22,7 @@ public class ProgramNode implements JottTree {
         // <function_def>* <EOF>
 
         ArrayList<FunctionDefNode> funcdefs = new ArrayList<FunctionDefNode>();
-        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken().equals("Def")) {
+        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
             FunctionDefNode funcdef = FunctionDefNode.parseFunctionDefNode(tokens);
             if(funcdef == null) {
                 return null;

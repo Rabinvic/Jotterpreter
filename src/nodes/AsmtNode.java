@@ -20,6 +20,9 @@ public class AsmtNode implements Body_StmtNode{
         }
 
         IDNode id = IDNode.parseIDNode(tokens);
+        if(id == null){             
+            return null;
+        }
         if(tokens.get(0).getTokenType() != TokenType.ASSIGN) {
             System.err.println("Syntax Error:\n missing ''='\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
@@ -29,6 +32,10 @@ public class AsmtNode implements Body_StmtNode{
         tokens.remove(0);
 
         ExpressionNode expr = ExpressionNode.parseExpressionNode(tokens);
+        if(expr == null){             
+            return null;
+        }
+
 
         if(tokens.get(0).getTokenType() != TokenType.SEMICOLON) {
             System.err.println("Syntax Error:\n missing '';'\n" + tokens.get(0).getFilename() + ":" + 
