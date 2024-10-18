@@ -43,34 +43,41 @@ public class FunctionDefParamsNode implements JottTree{
     }
     
     public static FunctionDefParamsNode parseParamsNode(ArrayList<Token> tokens) {
+        // < id >:< type >< function_def_params_t >⋆ | ε
+        
         //if there are no parameters, empty string
         if(tokens.get(0).getTokenType() == TokenType.R_BRACKET){
             return new FunctionDefParamsNode(null, null,null);
         }
         
         // if only 1 parameter
+        // < id >
         IDNode id = IDNode.parseIDNode(tokens);
         if (id == null) {
             return null;
         }
 
+        // :
         if(tokens.get(0).getTokenType() != TokenType.COLON){
             System.err.println("Syntax Error:\n missing colon\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
-
         tokens.remove(0);
+
+        // < type >
         TypeNode type = TypeNode.parseTypeNode(tokens);
         if (type == null) {
             return null;
         }
 
+        // shortcut if only one parameter
         if(tokens.get(0).getTokenType() == TokenType.R_BRACKET){
             return new FunctionDefParamsNode(id, type, null);
         }
 
         // more than 1 parameter
+        // < function_def_params_t >⋆
         ArrayList<FunctionDefParamsTNode> paramTs = new ArrayList<FunctionDefParamsTNode>();
 
         while (tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
