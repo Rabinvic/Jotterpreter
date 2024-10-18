@@ -92,7 +92,7 @@ public class FunctionDefNode implements JottTree {
         }
 
         // }
-        if(tokens.get(0).getTokenType() != TokenType.R_BRACE) {
+        if(tokens.get(0).getTokenType() != TokenType.R_BRACE || tokens.isEmpty()) {
             System.err.println("Syntax Error:\n Missing Right Brace in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;

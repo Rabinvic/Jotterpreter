@@ -17,7 +17,7 @@ public class ElseNode implements Body_StmtNode{
         }
 
         // empty string
-        if(tokens.get(0).getToken() != "Else") {
+        if(!tokens.get(0).getToken().equals("Else")) {
             return new ElseNode(null);
         }
 
@@ -37,6 +37,7 @@ public class ElseNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+        tokens.remove(0);
 
         // < body >
         BodyNode body = BodyNode.parseBodyNode(tokens);
@@ -50,6 +51,7 @@ public class ElseNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+        tokens.remove(0);
 
 
         return new ElseNode(body);

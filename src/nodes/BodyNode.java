@@ -34,7 +34,7 @@ public class BodyNode implements JottTree{
         }
 
         ArrayList<Body_StmtNode> bodyStmts = new ArrayList<Body_StmtNode>();
-        while((tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER) 
+        while(!tokens.isEmpty() && (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER) 
             && !tokens.get(0).getToken().equals("Return")) {
             Body_StmtNode bodyStmt = Body_StmtNode.parseBodyStmtNode(tokens);
             if(bodyStmt == null) {
