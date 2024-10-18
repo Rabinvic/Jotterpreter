@@ -30,6 +30,12 @@ public class AsmtNode implements Body_StmtNode{
 
         ExpressionNode expr = ExpressionNode.parseExpressionNode(tokens);
 
+        if(tokens.get(0).getTokenType() != TokenType.SEMICOLON) {
+            System.err.println("Syntax Error:\n missing '';'\n" + tokens.get(0).getFilename() + ":" + 
+            tokens.get(0).getLineNum() + "\n");
+            return null;
+        }
+
         tokens.remove(0); //remove ;
 
         return new AsmtNode(id, expr);
@@ -37,6 +43,9 @@ public class AsmtNode implements Body_StmtNode{
     }
     
     public String convertToJott() {
+        if(expr instanceof FunctionCallNode ){
+            return this.id.convertToJott() + "=" + this.expr.convertToJott();
+        }
         return this.id.convertToJott() + "=" + this.expr.convertToJott() + ";";
     }
     public boolean validateTree() {

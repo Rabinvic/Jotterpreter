@@ -11,10 +11,16 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
         this.name = name;
         this.params = params;
     }
-
+    
     public String convertToJott() {
         return "::" + name.convertToJott() + "[" + params.convertToJott() + "];";
     }
+
+    public String convertToJottAlone(){
+        return "";
+    }
+
+
 
     public static FunctionCallNode parseFunctionCallNode(ArrayList<Token> tokens){
         if (tokens.size() == 0) {
