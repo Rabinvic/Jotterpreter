@@ -14,6 +14,11 @@ public class BodyNode implements JottTree{
         this.returnStmt = returnStmt;
     }
 
+    public static Boolean isbodyStartKeyword(Token t){
+        return t.getToken().equals("If") || t.getToken().equals("While") ||
+        t.getToken().equals("Return");
+    }
+
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

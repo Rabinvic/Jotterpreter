@@ -30,6 +30,8 @@ public class AsmtNode implements Body_StmtNode{
 
         ExpressionNode expr = ExpressionNode.parseExpressionNode(tokens);
 
+        tokens.remove(0); //remove ;
+
         return new AsmtNode(id, expr);
 
     }

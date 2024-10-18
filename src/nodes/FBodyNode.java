@@ -26,7 +26,10 @@ public class FBodyNode implements JottTree {
 
         // <var_dec>*
         ArrayList<Var_DecNode> vardecs = new ArrayList<Var_DecNode>();
-        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
+        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && Character.isUpperCase(tokens.get(0).getToken().charAt(0))) {
+            if (BodyNode.isbodyStartKeyword(tokens.get(0))) {
+                break;
+            }
             Var_DecNode vardec = Var_DecNode.parseVarDecNode(tokens);
             if(vardec == null) {
                 return null;

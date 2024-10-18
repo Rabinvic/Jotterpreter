@@ -45,7 +45,7 @@ public class Return_StmtNode implements JottTree{
         if(exp == null) {
             return "";
         }
-        return exp.convertToJott();
+        return "Return " + exp.convertToJott() + ";";
     }
 
     public boolean validateTree() {
