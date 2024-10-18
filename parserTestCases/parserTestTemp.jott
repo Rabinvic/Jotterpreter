@@ -1,0 +1,1 @@
+Def foo[x:String] :String{::print[x];}Def main[] :Void{}
