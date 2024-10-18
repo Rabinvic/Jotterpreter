@@ -78,7 +78,7 @@ public class If_StmtNode implements Body_StmtNode{
 
         // < elseif_lst >
         ArrayList<ElseIfNode> elseIfs = new ArrayList<ElseIfNode>();
-        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken().equals("Elseif")) {
+        while(!tokens.isEmpty() && tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken().equals("Elseif")) {
             //System.err.println("ElseIf found!!!");
             ElseIfNode elseIf = ElseIfNode.parseElseIfNode(tokens);
             if(elseIf == null) {
@@ -89,6 +89,9 @@ public class If_StmtNode implements Body_StmtNode{
 
         // < else >
         ElseNode els = ElseNode.parseElseNode(tokens);
+        if(els == null){
+            return null;
+        }
 
         return new If_StmtNode(expr, body, elseIfs, els);
     }

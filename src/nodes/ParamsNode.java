@@ -55,7 +55,7 @@ public class ParamsNode implements JottTree{
         // more than 1 parameter
         ArrayList<ParamsTNode> paramTs = new ArrayList<ParamsTNode>();
 
-        while (tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
+        while (!tokens.isEmpty() && tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
             ParamsTNode param = ParamsTNode.parseParamsTNode(tokens);
             if (param == null) {
                 return null;
