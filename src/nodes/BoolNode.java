@@ -17,7 +17,7 @@ public class BoolNode implements ExpressionNode {
             return null;
         }
         if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && 
-        (tokens.get(0).getToken() == "True" || tokens.get(0).getToken() == "False")) {
+        (tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False"))) {
             return new BoolNode(tokens.remove(0));
         } else {
             System.err.println("Syntax Error:\n missing boolean\n" + tokens.get(0).getFilename() + ":" + 

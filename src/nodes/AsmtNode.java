@@ -37,7 +37,7 @@ public class AsmtNode implements Body_StmtNode{
     }
     
     public String convertToJott() {
-        return this.id.convertToJott() + "=" + this.expr.convertToJott();
+        return this.id.convertToJott() + "=" + this.expr.convertToJott() + ";";
     }
     public boolean validateTree() {
         // TODO Auto-generated method stub

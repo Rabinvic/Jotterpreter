@@ -31,7 +31,7 @@ public interface OperandNode extends ExpressionNode{
                 return null;
             }
             return func;
-        } else if(tokens.get(0).getTokenType() == TokenType.MATH_OP && tokens.get(0).getToken() == "-" 
+        } else if(tokens.get(0).getTokenType() == TokenType.MATH_OP && tokens.get(0).getToken().equals("-") 
         && tokens.get(1).getTokenType() == TokenType.NUMBER) {
             Token update = new Token(tokens.get(0).getToken() + tokens.get(1).getToken(), tokens.get(0).getFilename(), tokens.get(0).getLineNum(), tokens.get(1).getTokenType());
             tokens.remove(0);

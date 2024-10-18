@@ -25,7 +25,7 @@ public class If_StmtNode implements Body_StmtNode{
         // If[< expr >]{< body >}< elseif_lst >*< else >
 
         // If
-        if(tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || tokens.get(0).getToken() != "If") {
+        if(tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || !tokens.get(0).getToken().equals("If")) {
             System.err.println("Syntax Error:\n missing ''If'\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
@@ -52,6 +52,7 @@ public class If_StmtNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+        tokens.remove(0);
 
         // {
         if(tokens.get(0).getTokenType() != TokenType.L_BRACE) {
@@ -59,6 +60,7 @@ public class If_StmtNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+        tokens.remove(0);
 
         // < body >
         BodyNode body = BodyNode.parseBodyNode(tokens);
@@ -72,10 +74,12 @@ public class If_StmtNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+        tokens.remove(0);
 
         // < elseif_lst >
         ArrayList<ElseIfNode> elseIfs = new ArrayList<ElseIfNode>();
-        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken() == "Elseif") {
+        while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken().equals("Elseif")) {
+            System.err.println("ElseIf found!!!");
             ElseIfNode elseIf = ElseIfNode.parseElseIfNode(tokens);
             if(elseIf == null) {
                 return null;

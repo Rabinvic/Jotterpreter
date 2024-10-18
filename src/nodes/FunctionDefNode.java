@@ -29,7 +29,7 @@ public class FunctionDefNode implements JottTree {
 
         // Def
         if(tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || !tokens.get(0).getToken().equals("Def")) {
-            System.err.println("Syntax Error:\n Missing Keyword 'Def'\n" + tokens.get(0).getFilename() + 
+            System.err.println("Syntax Error:\n Missing Keyword 'Def' in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;
         }
@@ -43,7 +43,7 @@ public class FunctionDefNode implements JottTree {
         
         // [
         if(tokens.get(0).getTokenType() != TokenType.L_BRACKET) {
-            System.err.println("Syntax Error:\n Missing Left Bracket\n" + tokens.get(0).getFilename() + 
+            System.err.println("Syntax Error:\n Missing Left Bracket in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;
         }
@@ -57,7 +57,7 @@ public class FunctionDefNode implements JottTree {
 
         // ]
         if(tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
-            System.err.println("Syntax Error:\n Missing Right Bracket\n" + tokens.get(0).getFilename() + 
+            System.err.println("Syntax Error:\n Missing Right Bracket in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;
         }
@@ -65,7 +65,7 @@ public class FunctionDefNode implements JottTree {
 
         // :
         if(tokens.get(0).getTokenType() != TokenType.COLON) {
-            System.err.println("Syntax Error:\n Missing Colon\n" + tokens.get(0).getFilename() + 
+            System.err.println("Syntax Error:\n Missing Colon in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;
         }
@@ -93,7 +93,7 @@ public class FunctionDefNode implements JottTree {
 
         // }
         if(tokens.get(0).getTokenType() != TokenType.R_BRACE) {
-            System.err.println("Syntax Error:\n Missing Right Brace\n" + tokens.get(0).getFilename() + 
+            System.err.println("Syntax Error:\n Missing Right Brace in Function Definition\n" + tokens.get(0).getFilename() + 
             ":" + tokens.get(0).getLineNum());
             return null;
         }
