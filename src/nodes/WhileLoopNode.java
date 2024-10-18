@@ -23,7 +23,7 @@ public class WhileLoopNode implements Body_StmtNode{
 
         // While
         if(tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || !tokens.get(0).getToken().equals("While")) {
-            System.err.println("Syntax Error:\n missing ''While'\n" + tokens.get(0).getFilename() + ":" + 
+            System.err.println("Syntax Error:\n missing ''While' in While Loop\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
         }

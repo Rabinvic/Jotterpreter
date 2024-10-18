@@ -11,35 +11,54 @@ public interface ExpressionNode extends JottTree{
             System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
+        // < operand > |
+        // < operand > < relop > < operand > |
+        // < operand > < mathop > < operand > |
+        // < string_literal > |
+        // < bool >
+
+
+        // < string_literal >
         if(tokens.get(0).getTokenType() == TokenType.STRING) {
             String_literalNode tempStr = String_literalNode.parseString_literalNode(tokens);
             if(tempStr == null) {
                 return null;
             }
             return tempStr;
-        } else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && 
+        }
+        // < bool >
+        else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && 
         (tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False"))) {
             BoolNode tempBool = BoolNode.parseBool(tokens);
             if(tempBool == null) {
                 return null;
             }
             return tempBool;
-        } else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.NUMBER ||
-        tokens.get(0).getTokenType() == TokenType.FC_HEADER || (tokens.get(0).getTokenType() == TokenType.MATH_OP && 
-        tokens.get(0).getToken().equals("-") && tokens.get(1).getTokenType() == TokenType.NUMBER)) {
+        }
+        else if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD ||
+        tokens.get(0).getTokenType() == TokenType.NUMBER ||
+        tokens.get(0).getTokenType() == TokenType.FC_HEADER ||
+            (tokens.get(0).getTokenType() == TokenType.MATH_OP &&
+            tokens.get(0).getToken().equals("-") &&
+            tokens.get(1).getTokenType() == TokenType.NUMBER)) {
+            // < operand > < mathop > < operand >
             if(tokens.get(1).getTokenType() == TokenType.MATH_OP) {
                 MathopNode tempMath = MathopNode.parseMathopNode(tokens);
                 if(tempMath == null) {
                     return null;
                 }
                 return tempMath;
-            } else if(tokens.get(1).getTokenType() == TokenType.REL_OP) {
+            } 
+            // < operand > < relop > < operand >
+            else if(tokens.get(1).getTokenType() == TokenType.REL_OP) {
                 RelopNode tempRel = RelopNode.parseRelopNode(tokens);
                 if(tempRel == null) {
                     return null;
                 }
                 return tempRel;
-            } else {
+            } 
+            // < operand >
+            else {
                 OperandNode tempOp = OperandNode.parseOperand(tokens);
                 if(tempOp == null) {
                     return null;
