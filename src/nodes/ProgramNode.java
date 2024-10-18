@@ -21,6 +21,8 @@ public class ProgramNode implements JottTree {
 
         // <function_def>* <EOF>
 
+
+
         ArrayList<FunctionDefNode> funcdefs = new ArrayList<FunctionDefNode>();
         while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
             FunctionDefNode funcdef = FunctionDefNode.parseFunctionDefNode(tokens);
@@ -32,6 +34,9 @@ public class ProgramNode implements JottTree {
             if (tokens.size()==0) {
                 return new ProgramNode(funcdefs);
             }
+        }
+        if(funcdefs.isEmpty()){
+            return null;
         }
         return new ProgramNode(funcdefs);
     }

@@ -41,35 +41,40 @@ public interface ExpressionNode extends JottTree{
             (tokens.get(0).getTokenType() == TokenType.MATH_OP &&
             tokens.get(0).getToken().equals("-") &&
             tokens.get(1).getTokenType() == TokenType.NUMBER)) {
-            // < operand > < mathop > < operand >
-            if(tokens.get(1).getTokenType() == TokenType.MATH_OP) {
-                MathopNode tempMath = MathopNode.parseMathopNode(tokens);
-                if(tempMath == null) {
-                    return null;
-                }
-                return tempMath;
-            } 
-            // < operand > < relop > < operand >
-            else if(tokens.get(1).getTokenType() == TokenType.REL_OP) {
-                RelopNode tempRel = RelopNode.parseRelopNode(tokens);
-                if(tempRel == null) {
-                    return null;
-                }
-                return tempRel;
-            } 
-            // < operand >
-            else {
-                OperandNode tempOp = OperandNode.parseOperand(tokens);
-                if(tempOp == null) {
-                    return null;
-                }
-                return tempOp;
+
+                ArrayList<Token> tokenCopy = (ArrayList<Token>) tokens.clone();
+
+                OperandNode getOp1 = OperandNode.parseOperand(tokenCopy);
+
+                //< operand > < mathop > < operand >
+                if(tokenCopy.get(0).getTokenType() == TokenType.MATH_OP) {
+                    MathopNode tempMath = MathopNode.parseMathopNode(tokens);
+                    if(tempMath == null) {
+                        return null;
+                    }
+                    return tempMath;
+                } 
+                // < operand > < relop > < operand >
+                else if(tokenCopy.get(0).getTokenType() == TokenType.REL_OP) {
+                    RelopNode tempRel = RelopNode.parseRelopNode(tokens);
+                    if(tempRel == null) {
+                        return null;
+                    }
+                    return tempRel;
+                } 
+                // < operand >
+                else {
+                    OperandNode tempOp = OperandNode.parseOperand(tokens);
+                    if(tempOp == null) {
+                        return null;
+                    }
+                    return tempOp;
+                }   
+            } else {
+                System.err.println("Syntax Error:\n not an expression\n" + tokens.get(0).getFilename() + ":" + 
+                tokens.get(0).getLineNum() + "\n");
+                return null;
             }   
-        } else {
-            System.err.println("Syntax Error:\n not an expression\n" + tokens.get(0).getFilename() + ":" + 
-            tokens.get(0).getLineNum() + "\n");
-            return null;
-        }
     }
 
     public boolean validateTree();
