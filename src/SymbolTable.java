@@ -13,4 +13,25 @@ public class SymbolTable {
 
     // This stores <Key, <Key, Value>> pairs of <Function Name, <Variable Name, Type>>
     public static HashMap<String, HashMap<String,String>> funcTables = new HashMap<String, HashMap<String,String>>();
+
+    public static void addFunctoion(String functionName, String returnType, ArrayList<String> params){
+        funcTypes.put(functionName, returnType);
+        funcParamTypes.put(functionName, params);
+        HashMap<String,String> functionTable = new HashMap<String,String>();
+        funcTables.put(functionName, functionTable);
+
+        currentFunc = functionName;
+    }
+
+    public static HashMap<String, String> getLocalSymTable(){
+        return funcTables.get(currentFunc);
+    }
+
+    public static String getFunctionReturn(String functionName){
+        return funcTypes.get(functionName);
+    }
+
+    public static ArrayList<String> getFunctionParameters(String functionName){
+        return funcParamTypes.get(functionName);
+    }
 }
