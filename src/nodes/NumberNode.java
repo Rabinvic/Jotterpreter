@@ -35,4 +35,10 @@ public class NumberNode implements OperandNode{
     public void execute() {
 
     }
+    public Boolean isInteger(){
+        if(name.getToken().contains(".")) {
+            return true;
+        }
+        return false;
+    }
 }
