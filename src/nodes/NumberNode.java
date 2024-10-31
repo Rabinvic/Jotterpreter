@@ -36,7 +36,7 @@ public class NumberNode implements OperandNode{
 
     }
     public Boolean isInteger(){
-        if(Integer.parseInt(name.getToken()) % 1 == 0) {
+        if(name.getToken().contains(".")) {
             return true;
         }
         return false;
