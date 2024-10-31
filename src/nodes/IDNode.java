@@ -5,7 +5,7 @@ import provided.Token;
 import provided.TokenType;
 
 public class IDNode implements OperandNode{
-    private Token name;
+    public Token name;
 
     public IDNode(Token name) {
         this.name = name;
