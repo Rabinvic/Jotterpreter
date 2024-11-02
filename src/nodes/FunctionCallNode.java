@@ -11,6 +11,10 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
         this.name = name;
         this.params = params;
     }
+
+    public String getFuncName(){
+        return this.name.getID();
+    }
     
     public String convertToJott() {
         return "::" + name.convertToJott() + "[" + params.convertToJott() + "]";

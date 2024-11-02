@@ -5,7 +5,7 @@ import provided.Token;
 import provided.TokenType;
 
 public class IDNode implements OperandNode{
-    public Token name;
+    private Token name;
 
     public IDNode(Token name) {
         this.name = name;
@@ -13,6 +13,10 @@ public class IDNode implements OperandNode{
 
     public String convertToJott() {
         return name.getToken();
+    }
+
+    public String getID(){
+        return this.name.getToken();
     }
 
     public static IDNode parseIDNode(ArrayList<Token> tokens) {

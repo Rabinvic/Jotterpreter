@@ -37,8 +37,8 @@ public class NumberNode implements OperandNode{
     }
     public Boolean isInteger(){
         if(name.getToken().contains(".")) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

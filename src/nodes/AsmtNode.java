@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 //import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
@@ -54,7 +55,12 @@ public class AsmtNode implements Body_StmtNode{
     }
     public boolean validateTree() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        if (!id.validateTree()) {
+            return false;
+        }
+        String varType = SymbolTable.getLocalSymTable().get(id.getID());
+        
+        return true;
     }
     public void execute() {
         // TODO Auto-generated method stub
