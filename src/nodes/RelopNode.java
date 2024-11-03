@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -44,7 +45,98 @@ public class RelopNode  implements ExpressionNode{
     }
 
     public boolean validateTree() {
-        return true;
+        if(!leftOperand.validateTree() || !rightOperand.validateTree()) {
+            return false;
+        }
+
+        if(leftOperand instanceof NumberNode) {
+            boolean left = ((NumberNode)leftOperand).isInteger();
+            
+            if(rightOperand instanceof NumberNode) {
+                boolean answer = (left && ((NumberNode)rightOperand).isInteger()) || (!left && !((NumberNode)rightOperand).isInteger());
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else if(rightOperand instanceof IDNode) {
+                String right = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
+                boolean answer = (right.equals("Integer") && left) || (right.equals("Double") && !left);
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else {
+                String right = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
+                boolean answer = (right.equals("Integer") && left) || (right.equals("Double") && !left);
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            }
+        } else if(leftOperand instanceof IDNode) {
+            String left = SymbolTable.getLocalSymTable().get(((IDNode)leftOperand).getID());
+
+            if(rightOperand instanceof NumberNode) {
+                boolean answer = (left.equals("Integer") && ((NumberNode)rightOperand).isInteger()) ||
+                (left.equals("Double") && !((NumberNode)rightOperand).isInteger());
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else if(rightOperand instanceof IDNode) {
+                String right = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
+                boolean answer = (right.equals("Integer") && left.equals("Integer")) ||
+                (right.equals("Double") && left.equals("Double"));
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else {
+                String right = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
+                boolean answer = (right.equals("Integer") && left.equals("Integer")) || 
+                (right.equals("Double") && left.equals("Double"));
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            }
+        } else {
+            String left = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
+
+            if(rightOperand instanceof NumberNode) {
+                boolean answer = (left.equals("Integer") && ((NumberNode)rightOperand).isInteger()) ||
+                (left.equals("Double") && !((NumberNode)rightOperand).isInteger());
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else if(rightOperand instanceof IDNode) {
+                String right = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
+                boolean answer = (right.equals("Integer") && left.equals("Integer")) ||
+                (right.equals("Double") && left.equals("Double"));
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            } else {
+                String right = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
+                boolean answer = (right.equals("Integer") && left.equals("Integer")) || 
+                (right.equals("Double") && left.equals("Double"));
+                if(!answer) {
+                    System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                }
+                return answer;
+            }
+        }
     }
 
     public void execute() {
