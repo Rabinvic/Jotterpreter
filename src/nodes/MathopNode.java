@@ -56,7 +56,7 @@ public class MathopNode  implements ExpressionNode{
 
             //right operand is a number
             if (rightOperand instanceof NumberNode) {
-                return leftInt && ((NumberNode)rightOperand).isInteger();
+                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
             } else if (rightOperand instanceof IDNode) { // right operand is an ID
                 String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
                 return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
@@ -79,7 +79,7 @@ public class MathopNode  implements ExpressionNode{
 
             //right operand is a number
             if (rightOperand instanceof NumberNode) {
-                return leftInt && ((NumberNode)rightOperand).isInteger();
+                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
             } else if (rightOperand instanceof IDNode) { // right operand is an ID
                 String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
                 return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
@@ -101,7 +101,7 @@ public class MathopNode  implements ExpressionNode{
 
             //right operand is a number
             if (rightOperand instanceof NumberNode) {
-                return leftInt && ((NumberNode)rightOperand).isInteger();
+                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
             } else if (rightOperand instanceof IDNode) { // right operand is an ID
                 String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
                 return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
