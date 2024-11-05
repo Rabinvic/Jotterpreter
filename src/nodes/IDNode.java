@@ -19,6 +19,14 @@ public class IDNode implements OperandNode{
         return this.name.getToken();
     }
 
+    public String getFilename() {
+        return name.getFilename();
+    }
+
+    public int getLineNum() {
+        return name.getLineNum();
+    }
+
     public static IDNode parseIDNode(ArrayList<Token> tokens) {
         if (tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

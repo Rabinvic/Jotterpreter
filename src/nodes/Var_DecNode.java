@@ -56,6 +56,12 @@ public class Var_DecNode implements JottTree {
         return type.convertToJott() + " " + id.convertToJott() + ";";
     }
     public boolean validateTree() {
+        if(SymbolTable.getLocalSymTable().containsKey(id.getID())) {
+            System.err.println("the variable " + id.getID() + " already exists in this function.");
+            return false;
+        }
+        //need to add variable to the funcTables but not sure how
+
         return true;
     }
     public void execute(){

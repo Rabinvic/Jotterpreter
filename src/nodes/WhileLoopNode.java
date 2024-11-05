@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -82,6 +83,24 @@ public class WhileLoopNode implements Body_StmtNode{
         return "While[" + expr.convertToJott() + "]{" + body.convertToJott() + "}";
     }
     public boolean validateTree() {
+        if(!expr.validateTree() || !body.validateTree()) {
+            return false;
+        }
+        if(expr instanceof MathopNode || expr instanceof String_literalNode) {
+            return false;
+        } else if(expr instanceof OperandNode) {
+            if(expr instanceof IDNode) {
+                if(!SymbolTable.getLocalSymTable().get(((IDNode)expr).getID()).equals("Boolean")) {
+                    return false;
+                }
+            } else if(expr instanceof FunctionCallNode) {
+                if(!SymbolTable.getFunctionReturn(((FunctionCallNode)expr).getFuncName()).equals("Boolean")) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
         return true;
     }
     public void execute() {
