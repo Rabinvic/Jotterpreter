@@ -99,7 +99,7 @@ public class AsmtNode implements Body_StmtNode{
             if(!expr.validateTree()) {
                 return false;
             }
-            //I don't know if this will work:
+            
             if(expr instanceof IDNode) {
                 if(!SymbolTable.getLocalSymTable().get(((IDNode)expr).getID()).equals(varType)) {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +

@@ -60,7 +60,8 @@ public class Var_DecNode implements JottTree {
             System.err.println("the variable " + id.getID() + " already exists in this function.");
             return false;
         }
-        //need to add variable to the funcTables but not sure how
+        //adds variable to the funcTables hashmap
+        SymbolTable.addLocalVar(SymbolTable.getLocalSymTable().get(id.getID()), id.getID());
 
         return true;
     }
