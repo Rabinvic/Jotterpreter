@@ -53,9 +53,10 @@ public class AsmtNode implements Body_StmtNode{
     public String convertToJott() {
         return this.id.convertToJott() + "=" + this.expr.convertToJott() + ";";
     }
+    
     public boolean validateTree() {
         // TODO Auto-generated method stub
-        if (!id.validateTree()) {
+        if (!id.validateTree() || !expr.validateTree()) {
             return false;
         }
         String varType = SymbolTable.getLocalSymTable().get(id.getID());
@@ -64,42 +65,25 @@ public class AsmtNode implements Body_StmtNode{
             id.getFilename() + ":" + id.getLineNum() + "\n");
             return false;
         }
-
         if(expr instanceof String_literalNode) {
             if(varType != "String") {
                 System.err.println("Semantic Error:\n" + "String variable cannot be assigned a non string value\n" +
                 id.getFilename() + ":" + id.getLineNum() + "\n");
                 return false;
             }
-        } else if(expr instanceof BoolNode) {
-            if(varType != "Boolean") {
+        } else if(expr instanceof BoolNode || expr instanceof RelopNode) {
+            if(!varType.equals("Boolean")) {
                 System.err.println("Semantic Error:\n" + "Boolean variable cannot be assigned a non boolean value\n" +
                 id.getFilename() + ":" + id.getLineNum() + "\n");
                 return false;
             }
-        } else if(expr instanceof MathopNode) {
-            if(!expr.validateTree()) {
-                return false;
-            }
+        } else if(expr instanceof MathopNode) { 
             if(!((MathopNode)expr).MathopType().equals(varType)) {
                 System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
                 id.getFilename() + ":" + id.getLineNum() + "\n");
                 return false;
             }
-        } else if(expr instanceof RelopNode) {
-            if(!expr.validateTree()) {
-                return false;
-            }
-            if(!((RelopNode)expr).RelopType().equals(varType)) {
-                System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
-                id.getFilename() + ":" + id.getLineNum() + "\n");
-                return false;
-            }
-        } else { // operandNode
-            if(!expr.validateTree()) {
-                return false;
-            }
-            
+        }else { // operandNode
             if(expr instanceof IDNode) {
                 if(!SymbolTable.getLocalSymTable().get(((IDNode)expr).getID()).equals(varType)) {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +

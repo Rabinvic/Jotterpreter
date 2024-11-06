@@ -30,6 +30,14 @@ public class MathopNode  implements ExpressionNode{
         }
     }
 
+    public String getFilename() {
+        return math.getFilename();
+    }
+
+    public int getLineNum() {
+        return math.getLineNum();
+    }
+
     public static MathopNode parseMathopNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

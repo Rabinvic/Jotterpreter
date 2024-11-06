@@ -1,5 +1,7 @@
 package nodes;
 import java.util.ArrayList;
+
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -10,6 +12,14 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
     public FunctionCallNode(IDNode name, ParamsNode params) {
         this.name = name;
         this.params = params;
+    }
+
+    public String getFilename() {
+        return name.getFilename();
+    }
+
+    public int getLineNum() {
+        return name.getLineNum();
     }
 
     public String getFuncName(){
@@ -61,6 +71,9 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
     }
 
     public boolean validateTree() {
+        if(!params.validateTree()) {
+            return false;
+        }
         return true;
     }
 

@@ -16,20 +16,6 @@ public class RelopNode  implements ExpressionNode{
         this.rightOperand = rightOperand;
     }
 
-    public String RelopType() {
-        if(rightOperand instanceof NumberNode) {
-            if(((NumberNode)rightOperand).isInteger()) {
-                return "Integer";
-            } else {
-                return "Double";
-            }
-        } else if(rightOperand instanceof IDNode) {
-            return SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
-        } else {
-            return SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
-        }
-    }
-
     public static RelopNode parseRelopNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

@@ -11,6 +11,14 @@ public class String_literalNode  implements ExpressionNode{
         this.strLit = strLit;
     }
 
+    public String getFilename() {
+        return strLit.getFilename();
+    }
+
+    public int getLineNum() {
+        return strLit.getLineNum();
+    }
+
     public static String_literalNode parseString_literalNode(ArrayList<Token> tokens){
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");

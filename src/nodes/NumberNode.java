@@ -10,6 +10,13 @@ public class NumberNode implements OperandNode{
     public NumberNode(Token name) {
         this.name = name;
     }
+    public String getFilename() {
+        return name.getFilename();
+    }
+
+    public int getLineNum() {
+        return name.getLineNum();
+    }
 
     public static NumberNode parseNumberNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
