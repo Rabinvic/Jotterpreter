@@ -35,4 +35,8 @@ public class SymbolTable {
     public static ArrayList<String> getFunctionParameters(String functionName){
         return funcParamTypes.get(functionName);
     }
+
+    public static void addLocalVar(String type, String id){
+        funcTables.get(currentFunc).put(type, id);
+    }
 }
