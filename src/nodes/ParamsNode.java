@@ -14,6 +14,17 @@ public class ParamsNode implements JottTree{
         this.paramTs = paramTs;
     }
 
+    public ArrayList<ExpressionNode> paramsHelper() {
+        ArrayList<ExpressionNode> params = new ArrayList<ExpressionNode>();
+        if(paramTs == null) {
+            return null;
+        }
+        for(ParamsTNode param: paramTs) {
+            params.add(param.paramsTHelper());
+        }
+        return params;
+    }
+
     public String convertToJott() {
         if (this.expr == null) {
             return "";
@@ -29,6 +40,20 @@ public class ParamsNode implements JottTree{
     }
 
     public boolean validateTree() {
+        if(expr == null) {
+            return true;
+        }
+        if(!expr.validateTree()) {
+            return false;
+        }
+        if(paramTs == null) {
+            return true;
+        }
+        for(ParamsTNode param: paramTs) {
+            if(!param.validateTree()) {
+                return false;
+            }
+        }
         return true;
     }
 

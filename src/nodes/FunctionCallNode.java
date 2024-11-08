@@ -74,6 +74,80 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
         if(!params.validateTree()) {
             return false;
         }
+
+        if(!SymbolTable.funcTypes.containsKey(name.getID())) {
+            System.err.println("Semantic Error:\n" + "attempting to call function that hasn't been defined\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+            return false;
+        }
+
+        //params from function call
+        ArrayList<ExpressionNode> parameters = params.paramsHelper();
+        //params from function declaration
+        ArrayList<String> declaredParams= SymbolTable.getFunctionParameters(name.getID());
+        if(parameters == null) {
+            if(declaredParams.size() != 0) {
+                System.err.println("Semantic Error:\n" + "passed in no parameters when parameters are needed\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+            return true;
+        }
+
+        if(parameters.size() != declaredParams.size()) {
+            System.err.println("Semantic Error:\n" + "function call has incorrect number of parameters\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+            return false;
+        }
+
+        for(int i = 0; i < parameters.size(); i++) {
+            if(parameters.get(i) instanceof BoolNode || parameters.get(i) instanceof RelopNode) {
+                if(!declaredParams.get(i).equals("Boolean")) {
+                    System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                    return false;
+                }
+            } else if(parameters.get(i) instanceof MathopNode) {
+                if(!declaredParams.get(i).equals(((MathopNode)parameters.get(i)).MathopType())) {
+                    System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                    return false;
+                }
+            } else if(parameters.get(i) instanceof String_literalNode) {
+                if(!declaredParams.get(i).equals("String")) {
+                    System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                    return false;
+                }
+            } else {
+                if(parameters.get(i) instanceof IDNode) {
+                    if(!declaredParams.get(i).equals(SymbolTable.getLocalSymTable().get(((IDNode)parameters.get(i)).getID()))) {
+                        System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                } else if(parameters.get(i) instanceof FunctionCallNode) {
+                    if(!declaredParams.get(i).equals(SymbolTable.getFunctionReturn(((FunctionCallNode)parameters.get(i)).getFuncName()))) {
+                        System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                } else {
+                    String parameterType;
+                    if(((NumberNode)parameters.get(i)).isInteger()) {
+                        parameterType = "Integer";
+                    } else {
+                        parameterType = "Double";
+                    }
+                    if(!declaredParams.get(i).equals(parameterType)) {
+                        System.err.println("Semantic Error:\n" + "function call has incorrect parameter type for parameter " + i + "\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                }
+            }
+        }
+
         return true;
     }
 

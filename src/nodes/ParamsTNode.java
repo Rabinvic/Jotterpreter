@@ -20,6 +20,10 @@ public class ParamsTNode implements JottTree{
         return true;
     }
 
+    public ExpressionNode paramsTHelper() {
+        return expr;
+    }
+
     public void execute() {
 
     }
