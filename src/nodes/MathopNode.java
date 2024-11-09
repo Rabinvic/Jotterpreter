@@ -72,66 +72,41 @@ public class MathopNode  implements ExpressionNode{
             return false;
         }
 
-        //left operand is a number
-        if (leftOperand instanceof NumberNode){
-            boolean leftInt = ((NumberNode)leftOperand).isInteger();
+        String leftType = "";
+        boolean leftInt = false;
 
-            //right operand is a number
-            if (rightOperand instanceof NumberNode) {
-                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
-            } else if (rightOperand instanceof IDNode) { // right operand is an ID
-                String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
-                return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
-            } else { // right operand is a function call
-                String rightReturn = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
-                return (rightReturn.equals("Integer") && leftInt) || (rightReturn.equals("Double") && !leftInt);
-            }
-
-        } else if (leftOperand instanceof IDNode){ // left operand is an ID
-            String leftType = ((IDNode)leftOperand).getID();
-            boolean leftInt = false;
-            
-            if (leftType.equals("String") || leftType.equals("Boolean")) {
-                return false;
-            }
-
-            if (leftType.equals("Integer")) {
-                leftInt = true;
-            }
-
-            //right operand is a number
-            if (rightOperand instanceof NumberNode) {
-                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
-            } else if (rightOperand instanceof IDNode) { // right operand is an ID
-                String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
-                return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
-            } else { // right operand is a function call
-                String rightReturn = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
-                return (rightReturn.equals("Integer") && leftInt) || (rightReturn.equals("Double") && !leftInt);
-            }
-
+        // get the type of the left operand
+        if (leftOperand instanceof NumberNode) {
+            leftInt = ((NumberNode)leftOperand).isInteger();
+        } else if (leftOperand instanceof IDNode) {
+            leftType = ((IDNode)leftOperand).getID();
         } else { // left operand is a function call
-            String leftType = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
-            boolean leftInt = false;
-            
-            if (leftType.equals("String") || leftType.equals("Boolean") || leftType.equals("Void")) {
-                return false;
-            }
-            if (leftType.equals("Integer")) {
-                leftInt = true;
-            }
-
-            //right operand is a number
-            if (rightOperand instanceof NumberNode) {
-                return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
-            } else if (rightOperand instanceof IDNode) { // right operand is an ID
-                String rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
-                return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);                
-            } else { // right operand is a function call
-                String rightReturn = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
-                return (rightReturn.equals("Integer") && leftInt) || (rightReturn.equals("Double") && !leftInt);
-            }
+            leftType = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
         }
+
+        // invalid if left operand is a string, boolean, or void
+        if (leftType.equals("String") ||
+            leftType.equals("Boolean") ||
+            leftType.equals("Void")) {
+            return false;
+        }
+        // determine if left operand is an integer
+        if (leftType.equals("Integer")) {
+            leftInt = true;
+        }
+
+        String rightType = "";
+
+        // valid if right operand matches left operand's type
+        if (rightOperand instanceof NumberNode) {
+            return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
+        } else if (rightOperand instanceof IDNode) {
+            rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
+        } else { // right operand is a function call
+            rightType = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
+        }
+
+        return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);
     }
 
     public void execute() {
