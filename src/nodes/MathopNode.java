@@ -79,7 +79,7 @@ public class MathopNode  implements ExpressionNode{
         if (leftOperand instanceof NumberNode) {
             leftInt = ((NumberNode)leftOperand).isInteger();
         } else if (leftOperand instanceof IDNode) {
-            leftType = ((IDNode)leftOperand).getID();
+            leftType = SymbolTable.getLocalSymTable().get(((IDNode)leftOperand).getID());
         } else { // left operand is a function call
             leftType = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
         }
@@ -88,6 +88,8 @@ public class MathopNode  implements ExpressionNode{
         if (leftType.equals("String") ||
             leftType.equals("Boolean") ||
             leftType.equals("Void")) {
+            System.err.println("Semantic Error:\n" + "cannot evaluate using left operand's type\n" +
+            math.getFilename() + ":" + math.getLineNum() + "\n");
             return false;
         }
         // determine if left operand is an integer
@@ -97,16 +99,34 @@ public class MathopNode  implements ExpressionNode{
 
         String rightType = "";
 
-        // valid if right operand matches left operand's type
+        // invalid if right operand doesn't match left operand's type (short circuit return for number nodes)
         if (rightOperand instanceof NumberNode) {
-            return (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
+            boolean answer = (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
+            if (!answer)
+                System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                                math.getFilename() + ":" + math.getLineNum() + "\n");
+            return answer;
         } else if (rightOperand instanceof IDNode) {
             rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
         } else { // right operand is a function call
             rightType = SymbolTable.getFunctionReturn(((FunctionCallNode)rightOperand).getFuncName());
         }
 
-        return (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);
+        // invalid if right operand is a string, boolean, or void
+        if (leftType.equals("String") ||
+            leftType.equals("Boolean") ||
+            leftType.equals("Void")) {
+            System.err.println("Semantic Error:\n" + "cannot evaluate using right operand's type\n" +
+            math.getFilename() + ":" + math.getLineNum() + "\n");
+            return false;
+        }
+
+        // invalid if right operand doesn't match left operand's type
+        boolean answer = (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);
+        if (!answer)
+            System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
+                                            math.getFilename() + ":" + math.getLineNum() + "\n");
+        return answer;
     }
 
     public void execute() {
