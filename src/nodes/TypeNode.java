@@ -30,6 +30,7 @@ public class TypeNode implements JottTree {
         return type.getToken();
     }
 
+    // this is done
     public boolean validateTree() {
         return true;
     }

@@ -5,17 +5,17 @@ import provided.Token;
 import provided.TokenType;
 
 public class NumberNode implements OperandNode{
-    private Token name;
+    private Token value;
 
-    public NumberNode(Token name) {
-        this.name = name;
+    public NumberNode(Token value) {
+        this.value = value;
     }
     public String getFilename() {
-        return name.getFilename();
+        return value.getFilename();
     }
 
     public int getLineNum() {
-        return name.getLineNum();
+        return value.getLineNum();
     }
 
     public static NumberNode parseNumberNode(ArrayList<Token> tokens) {
@@ -32,9 +32,10 @@ public class NumberNode implements OperandNode{
     }
 
     public String convertToJott() {
-        return name.getToken();
+        return value.getToken();
     }
 
+    // this is done
     public boolean validateTree(){
         return true;
     }
@@ -43,7 +44,7 @@ public class NumberNode implements OperandNode{
 
     }
     public Boolean isInteger(){
-        if(name.getToken().contains(".")) {
+        if(value.getToken().contains(".")) {
             return false;
         }
         return true;

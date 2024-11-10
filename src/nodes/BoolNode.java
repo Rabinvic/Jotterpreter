@@ -30,6 +30,7 @@ public class BoolNode implements ExpressionNode {
         return bool.getToken();
     }
 
+    // this is done
     public boolean validateTree() {
         return true;
     }
