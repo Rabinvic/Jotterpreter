@@ -24,15 +24,10 @@ public class BodyNode implements JottTree{
             System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
-        
-        if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && tokens.get(0).getToken().equals("Return")) {
-            Return_StmtNode returnStmt = Return_StmtNode.parseReturn_StmtNode(tokens);
-            if(returnStmt == null) {
-                return null;
-            }
-            return new BodyNode(null, returnStmt);
-        }
+        // <body_stmt>⋆ <return_stmt>
 
+
+        // <body_stmt>⋆
         ArrayList<Body_StmtNode> bodyStmts = new ArrayList<Body_StmtNode>();
         while(!tokens.isEmpty() && (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER) 
             && !tokens.get(0).getToken().equals("Return")) {
@@ -43,11 +38,12 @@ public class BodyNode implements JottTree{
             bodyStmts.add(bodyStmt);
         }
 
+        // <return_stmt>
         Return_StmtNode returnStmt = Return_StmtNode.parseReturn_StmtNode(tokens);
         if(returnStmt == null) {
             return null;
         }
-        return new BodyNode(bodyStmts, returnStmt); 
+        return bodyStmts.isEmpty() ? new BodyNode(null, returnStmt) : new BodyNode(bodyStmts, returnStmt);
     }
 
     public String convertToJott() {
@@ -65,8 +61,15 @@ public class BodyNode implements JottTree{
         return str;
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        for (Body_StmtNode body_StmtNode : bodyStmts) {
+            if (!body_StmtNode.validateTree()) {
+                return false;
+            }
+        }
+        if (!returnStmt.validateTree()) {
+            return false;
+        }
         return true;
     }
 

@@ -57,8 +57,16 @@ public class FBodyNode implements JottTree {
         return s;
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        if (!body.validateTree()) { 
+            return false;
+        }
+        /**
+        DO LATER
+        if (!body.hasReturnStmt()) {
+            System.err.println("Syntax Error:\n Missing return statement in function body");
+            return false;
+        }**/
         return true;
     }
 
