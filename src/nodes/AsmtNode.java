@@ -54,8 +54,8 @@ public class AsmtNode implements Body_StmtNode{
         return this.id.convertToJott() + "=" + this.expr.convertToJott() + ";";
     }
     
+    // presumably done
     public boolean validateTree() {
-        // TODO Auto-generated method stub
         if (!id.validateTree() || !expr.validateTree()) {
             return false;
         }
@@ -110,8 +110,7 @@ public class AsmtNode implements Body_StmtNode{
         return true;
     }
     public void execute() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        
     }
 
 }

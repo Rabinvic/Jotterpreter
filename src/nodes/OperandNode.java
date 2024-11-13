@@ -5,9 +5,6 @@ import provided.Token;
 import provided.TokenType;
 
 public interface OperandNode extends ExpressionNode{
-    public boolean validateTree();
-    public String convertToJott();
-    public void execute();
     public static OperandNode parseOperand(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");
@@ -48,4 +45,8 @@ public interface OperandNode extends ExpressionNode{
             return null;
         }
     }
+    // this is done
+    public boolean validateTree();
+    public String convertToJott();
+    public void execute();
 }

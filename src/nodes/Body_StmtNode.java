@@ -6,10 +6,6 @@ import provided.Token;
 import provided.TokenType;
 
 public interface Body_StmtNode  extends JottTree{
-    public String convertToJott();
-    public boolean validateTree();
-    public void execute();
-
     public static Body_StmtNode parseBodyStmtNode(ArrayList<Token> tokens) {
         if(tokens.size() == 0) {
             System.err.print("Syntax Error:\n no tokens to parse\n");
@@ -52,4 +48,8 @@ public interface Body_StmtNode  extends JottTree{
             return null;
         }
     }
+    // this is done
+    public boolean validateTree();
+    public String convertToJott();
+    public void execute();
 }

@@ -51,6 +51,7 @@ public class ProgramNode implements JottTree {
         return s;
     }
 
+    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
         return true;
     }

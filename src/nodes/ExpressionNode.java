@@ -77,6 +77,7 @@ public interface ExpressionNode extends JottTree{
             }   
     }
 
+    // this is done
     public boolean validateTree();
     public String convertToJott();
     public void execute();

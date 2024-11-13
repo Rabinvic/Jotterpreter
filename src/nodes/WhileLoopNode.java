@@ -82,6 +82,8 @@ public class WhileLoopNode implements Body_StmtNode{
         // While [ < expr >]{ < body >}
         return "While[" + expr.convertToJott() + "]{" + body.convertToJott() + "}";
     }
+
+    // presumably done
     public boolean validateTree() {
         if(!expr.validateTree() || !body.validateTree()) {
             return false;

@@ -65,6 +65,7 @@ public class BodyNode implements JottTree{
         return str;
     }
 
+    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
         return true;
     }

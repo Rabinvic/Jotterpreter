@@ -67,6 +67,7 @@ public class MathopNode  implements ExpressionNode{
         return leftOperand.convertToJott() + math.getToken() + rightOperand.convertToJott();
     }
 
+    // presumably done
     public boolean validateTree(){
         if (!leftOperand.validateTree() || !rightOperand.validateTree()) {
             return false;

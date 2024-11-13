@@ -44,6 +44,7 @@ public class RelopNode  implements ExpressionNode{
         return leftOperand.convertToJott() + relation.getToken() + rightOperand.convertToJott();
     }
 
+    // presumably done
     public boolean validateTree() {
         if(!leftOperand.validateTree() || !rightOperand.validateTree()) {
             return false;

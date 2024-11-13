@@ -34,10 +34,6 @@ public class FunctionDefParamsNode implements JottTree{
         return str;
     }
 
-    public boolean validateTree() {
-        return true;
-    }
-
     public void execute() {
 
     }
@@ -91,4 +87,8 @@ public class FunctionDefParamsNode implements JottTree{
         return new FunctionDefParamsNode(id, type, paramTs);
     }
 
+    // TODO -- IMPLEMENT validateTree()
+    public boolean validateTree() {
+        return true;
+    }
 }

@@ -106,6 +106,7 @@ public class If_StmtNode implements Body_StmtNode{
         return "If[" + expr.convertToJott() + "]{" + body.convertToJott() + "}" + elseIfList + els.convertToJott();
     }
 
+    // presumably done
     public boolean validateTree() {
         if(!expr.validateTree() || !body.validateTree() || !els.validateTree()) {
             return false;

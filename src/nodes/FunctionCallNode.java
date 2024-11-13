@@ -70,6 +70,7 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
         return new FunctionCallNode(id, params);
     }
 
+    // presumably done
     public boolean validateTree() {
         if(!params.validateTree()) {
             return false;

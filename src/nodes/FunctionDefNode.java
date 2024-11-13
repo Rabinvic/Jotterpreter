@@ -116,6 +116,7 @@ public class FunctionDefNode implements JottTree {
         return s;
     }
 
+    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
         return true;
     }

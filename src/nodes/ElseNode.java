@@ -61,6 +61,8 @@ public class ElseNode implements Body_StmtNode{
         // Else{< body >}
         return "Else{" + body.convertToJott() + "}";
     }
+
+    // presumably done
     public boolean validateTree() {
         if(body == null) {
             return true;
