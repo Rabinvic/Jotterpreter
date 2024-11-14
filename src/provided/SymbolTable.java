@@ -37,6 +37,6 @@ public class SymbolTable {
     }
 
     public static void addLocalVar(String type, String id){
-        funcTables.get(currentFunc).put(type, id);
+        funcTables.get(currentFunc).put(id, type);
     }
 }
