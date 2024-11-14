@@ -153,6 +153,19 @@ public class FunctionDefNode implements JottTree {
                 return false;
             }
         }
+
+        ArrayList<String> paramTypes = new ArrayList<>();
+        if (fdp != null && fdp.id != null) {
+            paramTypes.add(fdp.type.convertToJott());
+            if (fdp.paramTs != null) {
+                for (FunctionDefParamsTNode paramT : fdp.paramTs) {
+                    paramTypes.add(paramT.type.convertToJott());
+                }
+            }
+        }
+
+        SymbolTable.addFunction(name, fr.convertToJott(), paramTypes);
+
         return true;
     }
 
