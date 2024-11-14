@@ -120,6 +120,7 @@ public class FunctionDefNode implements JottTree {
         return s;
     }
 
+    // presumably done
     public boolean validateTree() {
         if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
             return false;

@@ -62,6 +62,14 @@ public class ElseNode implements Body_StmtNode{
         return "Else{" + body.convertToJott() + "}";
     }
 
+    // erm its self documenting code basically just read it -ETHAN
+    public boolean guaranteesReturn() {
+        if (body.hasReturnStmt()) {
+            return true;
+        }
+        return false;
+    }
+
     // presumably done
     public boolean validateTree() {
         if(body == null) {

@@ -87,6 +87,7 @@ public class FunctionDefParamsNode implements JottTree{
         return new FunctionDefParamsNode(id, type, paramTs);
     }
 
+    // presumably done
     public boolean validateTree() {
         if(id == null) {
             return true;

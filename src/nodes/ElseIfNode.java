@@ -77,6 +77,14 @@ public class ElseIfNode implements Body_StmtNode{
         return "Elseif[" + expr.convertToJott() + "]{" + body.convertToJott() + "}";
     }
 
+    // erm its self documenting code basically just read it -ETHAN
+    public boolean guaranteesReturn() {
+        if (body.hasReturnStmt()) {
+            return true;
+        }
+        return false;
+    }
+
     // presumably done
     public boolean validateTree() {
         if(!expr.validateTree() || !body.validateTree()) {

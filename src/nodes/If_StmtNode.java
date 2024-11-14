@@ -147,6 +147,29 @@ public class If_StmtNode implements Body_StmtNode{
         }
         return true;
     }
+
+    // erm its self documenting code basically just read it -ETHAN
+    public boolean guaranteesReturn() {
+        boolean ifStmtReturns = false;
+        boolean allElseIfsReturn = true;
+        boolean elseStmtReturns = false;
+
+        if (body.hasReturnStmt()) {
+            ifStmtReturns = true;
+        }
+
+        for (ElseIfNode elseIfNode : elseIfs) {
+            if(!elseIfNode.guaranteesReturn()) {
+                allElseIfsReturn = false;
+            }
+        }
+        
+        if(els.guaranteesReturn()) {
+            elseStmtReturns = true;
+        }
+        
+        return ifStmtReturns && allElseIfsReturn && elseStmtReturns;
+    }
     public void execute(){
 
     }

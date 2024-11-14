@@ -39,7 +39,8 @@ public class FunctionReturnNode implements JottTree {
             return type.convertToJott();
         } 
     }
-    
+
+    // presumably done
     public boolean validateTree() {
         if(isVoid) {
             return true;

@@ -49,6 +49,7 @@ public class ProgramNode implements JottTree {
         return s;
     }
 
+    // presumably done
     public boolean validateTree() {
         boolean containsMain = false;
         for(FunctionDefNode func: funcdefs) {

@@ -2,6 +2,7 @@ package nodes;
 import java.util.ArrayList;
 
 import provided.JottTree;
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -56,13 +57,16 @@ public class Return_StmtNode implements JottTree{
         return "Return " + exp.convertToJott() + ";";
     }
 
-    // presumably done
+    // presumably done (NOT DONE??)
     public boolean validateTree() {
         if(exp == null) {
             return true;
         }
         if(!exp.validateTree()) {
             return false;
+        }
+        if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
+
         }
         return true;
     }

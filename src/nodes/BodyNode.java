@@ -73,6 +73,26 @@ public class BodyNode implements JottTree{
         return true;
     }
 
+    public boolean hasReturnStmt() {
+        // first just check all statements in it
+        for (Body_StmtNode body_StmtNode : bodyStmts) {
+            if(body_StmtNode instanceof Return_StmtNode) {
+                return true;
+            }
+        }
+
+        // then check that any if statement that is found guarantees a return in all cases
+        for (Body_StmtNode body_StmtNode : bodyStmts) {
+            if(body_StmtNode instanceof If_StmtNode) {
+                if (((If_StmtNode)body_StmtNode).guaranteesReturn()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public void execute() {
         
     }
