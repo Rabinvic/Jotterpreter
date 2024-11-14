@@ -208,12 +208,17 @@ public class JottTokenizer {
         latestChar = (char)readJott.read();
         tokenString += latestChar;
       } while((digits.contains(latestChar) || letters.contains(latestChar) || latestChar == ' ' || latestChar == '\t') && latestChar != '\n' && latestChar != '"'); //keeps looking until new line or " are seen, adds all characters seen between " "
-      if (latestChar == '\n' || latestChar != '\"') { //if new line is found it is invalid syntax and an error is printed
+      if (latestChar == '\n') { //if new line is found it is invalid syntax and an error is printed
         errorFound = true;
-        System.err.println("Strings must be one line, expecting \" at end of line \n" + filename + ":" + lineCount);          
-      } else {
-        tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.STRING)); 
+        System.err.println("Strings must be one line, expecting \" at end of line \n" + filename + ":" + lineCount);
+        return;
       }
+      if(latestChar != '\"') {
+      System.err.println("Semantic Error:\nStrings may only contain letters, numbers, or spaces\n"+ filename + ":" + lineCount);
+      errorFound = true;
+      return;
+      }
+      tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.STRING));
     } catch(IOException e){
       System.out.println(e);
     }

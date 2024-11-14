@@ -49,8 +49,10 @@ public class FunctionDefParamsTNode implements JottTree{
         return "," + this.id.convertToJott()+":"+this.type.convertToJott();
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        if(!id.validateTree() || !type.validateTree()) {
+            return false;
+        }
         return true;
     }
 

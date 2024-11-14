@@ -61,12 +61,19 @@ public class FBodyNode implements JottTree {
         if (!body.validateTree()) { 
             return false;
         }
-        /**
-        DO LATER
-        if (!body.hasReturnStmt()) {
-            System.err.println("Syntax Error:\n Missing return statement in function body");
+        /*
+        if(!SymbolTable.funcTypes.get(SymbolTable.currentFunc).equals("Void")){
+            if(!body.hasReturnStmt()) {
+                System.err.println("Semantic Error:\nMissing return statement in function body."); // handle last line of error
+                return false;
+            }
+            return true;
+        }
+        if(body.hasReturnStmt()) {
+            System.err.println("Semantic Error:\nFunction with return type of 'Void' returns."); // handle last line of errror
             return false;
-        }**/
+        }
+        */
         return true;
     }
 

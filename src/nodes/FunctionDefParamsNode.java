@@ -87,8 +87,18 @@ public class FunctionDefParamsNode implements JottTree{
         return new FunctionDefParamsNode(id, type, paramTs);
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        if(id == null) {
+            return true;
+        }
+        if(!id.validateTree() || !type.validateTree()) {
+            return false;
+        }
+        for(FunctionDefParamsTNode fdpt: paramTs) {
+            if(!fdpt.validateTree()) {
+                return false;
+            }
+        }
         return true;
     }
 }

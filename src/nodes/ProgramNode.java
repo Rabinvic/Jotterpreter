@@ -21,8 +21,6 @@ public class ProgramNode implements JottTree {
 
         // <function_def>* <EOF>
 
-
-
         ArrayList<FunctionDefNode> funcdefs = new ArrayList<FunctionDefNode>();
         while(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
             FunctionDefNode funcdef = FunctionDefNode.parseFunctionDefNode(tokens);
@@ -51,8 +49,20 @@ public class ProgramNode implements JottTree {
         return s;
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        boolean containsMain = false;
+        for(FunctionDefNode func: funcdefs) {
+            if(!func.validateTree()) {
+                return false;
+            }
+            if(func.getName().equals("main")) {
+                containsMain = true;
+            }
+        }
+        if(!containsMain) {
+            System.err.println("Error: Missing Main Function");
+            return false;
+        }
         return true;
     }
 

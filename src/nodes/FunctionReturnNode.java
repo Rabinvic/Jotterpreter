@@ -40,10 +40,13 @@ public class FunctionReturnNode implements JottTree {
         } 
     }
     
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
-        return true;
+        if(isVoid) {
+            return true;
+        }
+        return type.validateTree();
     }
+    
     public void execute(){
 
     }

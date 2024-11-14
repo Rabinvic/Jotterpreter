@@ -20,6 +20,10 @@ public class FunctionDefNode implements JottTree {
         this.fbody = fbody;
     }
 
+    public String getName() {
+        return id.getID();
+    }
+
     public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens) {
         if(0==tokens.size()) {
             System.err.println("Syntax Error:\n No Tokens");
@@ -116,8 +120,38 @@ public class FunctionDefNode implements JottTree {
         return s;
     }
 
-    // TODO -- IMPLEMENT validateTree()
     public boolean validateTree() {
+        String name = id.getID();
+        if(name.equals("print")) {
+            System.err.println("Semantic Error:\nFunction name overlaps builtin function 'print'.\n"+id.getFilename()+":"+id.getLineNum());
+            return false;
+        }
+        if(name.equals("concat")) {
+            System.err.println("Semantic Error:\nFunction name overlaps builtin function 'concat'.\n"+id.getFilename()+":"+id.getLineNum());
+            return false;
+        }
+        if(name.equals("length")) {
+            System.err.println("Semantic Error:\nFunction name overlaps builtin function 'length'.\n"+id.getFilename()+":"+id.getLineNum());
+            return false;
+        }
+        if(SymbolTable.funcTypes.containsKey(name)) {
+            System.err.println("Semantic Error:\nFunction already defined.\n"+id.getFilename()+":"+id.getLineNum());
+            return false;
+        }
+        if(name.equals("main")) {
+            if(!fdp.convertToJott().equals("")) {
+                System.err.println("Semantic Error:\nMain has parameters.\n"+id.getFilename()+":"+id.getLineNum());
+                return false;
+            }
+            if(!fr.convertToJott().equals("Void")) {
+                System.err.println("Semantic Error:\nMain has a return type other than 'Void'.\n"+id.getFilename()+":"+id.getLineNum());
+                return false;
+            }
+        }
+        if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
+            if(!fbody.validateTree())
+            return false;
+        }
         return true;
     }
 
