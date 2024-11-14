@@ -122,10 +122,6 @@ public class FunctionDefNode implements JottTree {
 
     // presumably done
     public boolean validateTree() {
-        if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
-            return false;
-        }
-
         String name = id.getID();
         if(name.equals("print")) {
             System.err.println("Semantic Error:\nFunction name overlaps builtin function 'print'.\n"+id.getFilename()+":"+id.getLineNum());
@@ -153,7 +149,6 @@ public class FunctionDefNode implements JottTree {
                 return false;
             }
         }
-
         ArrayList<String> paramTypes = new ArrayList<>();
         if (fdp != null && fdp.id != null) {
             paramTypes.add(fdp.type.convertToJott());
@@ -163,9 +158,10 @@ public class FunctionDefNode implements JottTree {
                 }
             }
         }
-
         SymbolTable.addFunction(name, fr.convertToJott(), paramTypes);
-
+        if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
+            return false;
+        }
         return true;
     }
 
