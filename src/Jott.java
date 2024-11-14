@@ -7,12 +7,12 @@ import provided.JottTree;
 
 public class Jott {
     public static void main(String[] args) throws Exception {
-        if(args.length > 2){
+        if(args.length > 1){
             System.err.println("Invalid Args: Only Jott file required");
             return;
         }
 
-        String JottFile = args[1];
+        String JottFile = args[0];
 
         if (!JottFile.contains("jott")) {
             System.err.println("Invalid Args: Not a Jott file");
