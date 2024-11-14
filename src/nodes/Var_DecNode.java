@@ -63,9 +63,10 @@ public class Var_DecNode implements JottTree {
             id.getFilename() + ":" + id.getLineNum() + "\n");
             return false;
         }
-        //adds variable to the funcTables hashmap
-        SymbolTable.addLocalVar(SymbolTable.getLocalSymTable().get(id.getID()), id.getID());
 
+        // fixed, previous would try to get declared id from getLocalSymbolTable when it doesn't exist there yet
+        String varType = type.convertToJott();
+        SymbolTable.addLocalVar(id.getID(), varType);
         return true;
     }
     public void execute(){

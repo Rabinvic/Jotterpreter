@@ -121,6 +121,10 @@ public class FunctionDefNode implements JottTree {
     }
 
     public boolean validateTree() {
+        if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
+            return false;
+        }
+
         String name = id.getID();
         if(name.equals("print")) {
             System.err.println("Semantic Error:\nFunction name overlaps builtin function 'print'.\n"+id.getFilename()+":"+id.getLineNum());
@@ -147,10 +151,6 @@ public class FunctionDefNode implements JottTree {
                 System.err.println("Semantic Error:\nMain has a return type other than 'Void'.\n"+id.getFilename()+":"+id.getLineNum());
                 return false;
             }
-        }
-        if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
-            if(!fbody.validateTree())
-            return false;
         }
         return true;
     }

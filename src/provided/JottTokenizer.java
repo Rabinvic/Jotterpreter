@@ -214,9 +214,9 @@ public class JottTokenizer {
         return;
       }
       if(latestChar != '\"') {
-      System.err.println("Semantic Error:\nStrings may only contain letters, numbers, or spaces\n"+ filename + ":" + lineCount);
-      errorFound = true;
-      return;
+        errorFound = true;
+        System.err.println("Semantic Error:\nStrings may only contain letters, numbers, or spaces\n"+ filename + ":" + lineCount);
+        return;
       }
       tokenizerOutput.add(new Token(tokenString, filename, lineCount, TokenType.STRING));
     } catch(IOException e){

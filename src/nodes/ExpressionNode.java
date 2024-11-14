@@ -42,9 +42,9 @@ public interface ExpressionNode extends JottTree{
             tokens.get(0).getToken().equals("-") &&
             tokens.get(1).getTokenType() == TokenType.NUMBER)) {
 
-                ArrayList<Token> tokenCopy = (ArrayList<Token>) tokens.clone();
+                ArrayList<Token> tokenCopy = new ArrayList<>(tokens);
 
-                OperandNode getOp1 = OperandNode.parseOperand(tokenCopy);
+                OperandNode.parseOperand(tokenCopy);
 
                 //< operand > < mathop > < operand >
                 if(tokenCopy.get(0).getTokenType() == TokenType.MATH_OP) {

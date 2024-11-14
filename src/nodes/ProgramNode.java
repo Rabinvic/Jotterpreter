@@ -60,7 +60,7 @@ public class ProgramNode implements JottTree {
             }
         }
         if(!containsMain) {
-            System.err.println("Error: Missing Main Function");
+            System.err.println("Semantic Error:\n" + "Missing Main Function\n");
             return false;
         }
         return true;

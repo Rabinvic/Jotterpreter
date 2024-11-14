@@ -103,6 +103,17 @@ public class MathopNode  implements ExpressionNode{
         // invalid if right operand doesn't match left operand's type (short circuit return for number nodes)
         if (rightOperand instanceof NumberNode) {
             boolean answer = (leftInt && ((NumberNode)rightOperand).isInteger()) || (!leftInt && !((NumberNode)rightOperand).isInteger());
+
+            // divide by zero
+            if (math.getToken().equals("/")) {
+                double rightValue = Double.parseDouble(((NumberNode)rightOperand).convertToJott());
+                if (rightValue == 0.0) {
+                    System.err.println("Semantic Error:\n" + "Division by Zero is not allowed\n" +
+                                       math.getFilename() + ":" + math.getLineNum() + "\n");
+                    return false;
+                }
+            }
+
             if (!answer)
                 System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
                                                 math.getFilename() + ":" + math.getLineNum() + "\n");
