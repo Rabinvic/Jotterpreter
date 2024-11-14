@@ -66,7 +66,7 @@ public class Var_DecNode implements JottTree {
 
         // fixed, previous would try to get declared id from getLocalSymbolTable when it doesn't exist there yet
         String varType = type.convertToJott();
-        SymbolTable.addLocalVar(id.getID(), varType);
+        SymbolTable.addLocalVar(varType, id.getID());
         return true;
     }
     public void execute(){
