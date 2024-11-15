@@ -97,6 +97,9 @@ public class FunctionDefParamsNode implements JottTree{
             return false;
         }
         SymbolTable.addLocalVar(type.convertToJott(), id.getID());
+        if (this.paramTs == null){
+            return true;
+        }
         for(FunctionDefParamsTNode fdpt: paramTs) {
             if(!fdpt.validateTree()) {
                 return false;

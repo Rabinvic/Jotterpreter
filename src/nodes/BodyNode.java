@@ -63,19 +63,25 @@ public class BodyNode implements JottTree{
     }
 
     public boolean validateTree() {
-        for (Body_StmtNode body_StmtNode : bodyStmts) {
-            if (!body_StmtNode.validateTree()) {
-                return false;
+        if(bodyStmts != null){
+            for (Body_StmtNode body_StmtNode : bodyStmts) {
+                if (!body_StmtNode.validateTree()) {
+                   return false;
+                }
             }
         }
         if (!returnStmt.validateTree()) {
             return false;
         }
         if(returnStmt.notFinished()) {
+            if (bodyStmts == null) {
+                System.err.println("Semantic Error:\n" +SymbolTable.currentFunc + "missing a return statement\n" +
+                                       SymbolTable.funcFile + ":" + SymbolTable.funcLine + "\n");
+                return false;
+            }
             for(int i = 0; i < bodyStmts.size(); i++) {
                 if(bodyStmts.get(i) instanceof If_StmtNode) {
                     if(!((If_StmtNode)bodyStmts.get(i)).hasReturn()) {
-                        //add error message
                         System.err.println("Semantic Error:\n" +SymbolTable.currentFunc + "missing a return statement\n" +
                                        SymbolTable.funcFile + ":" + SymbolTable.funcLine + "\n");
                         return false;
@@ -87,6 +93,9 @@ public class BodyNode implements JottTree{
     }
 
     public boolean hasReturnStmt() {
+        if (bodyStmts == null) {
+            return false;
+        }
         // first just check all statements in it
         for (Body_StmtNode body_StmtNode : bodyStmts) {
             if(body_StmtNode instanceof Return_StmtNode) {
