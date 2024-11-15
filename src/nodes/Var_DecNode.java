@@ -60,7 +60,7 @@ public class Var_DecNode implements JottTree {
     public boolean validateTree() {
         if(SymbolTable.getLocalSymTable().containsKey(id.getID())) {
             System.err.println("Semantic Error:\n" + "the variable " + id.getID() + " already exists in this function\n" +
-            id.getFilename() + ":" + id.getLineNum() + "\n");
+            id.getFilename() + ":" + id.getLineNum());
             return false;
         }
 

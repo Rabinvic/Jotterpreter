@@ -57,7 +57,7 @@ public class RelopNode  implements ExpressionNode{
                 boolean answer = (left && ((NumberNode)rightOperand).isInteger()) || (!left && !((NumberNode)rightOperand).isInteger());
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else if(rightOperand instanceof IDNode) {
@@ -65,7 +65,7 @@ public class RelopNode  implements ExpressionNode{
                 boolean answer = (right.equals("Integer") && left) || (right.equals("Double") && !left);
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else {
@@ -73,7 +73,7 @@ public class RelopNode  implements ExpressionNode{
                 boolean answer = (right.equals("Integer") && left) || (right.equals("Double") && !left);
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             }
@@ -85,7 +85,7 @@ public class RelopNode  implements ExpressionNode{
                 (left.equals("Double") && !((NumberNode)rightOperand).isInteger());
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else if(rightOperand instanceof IDNode) {
@@ -94,7 +94,7 @@ public class RelopNode  implements ExpressionNode{
                 (right.equals("Double") && left.equals("Double"));
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else {
@@ -103,7 +103,7 @@ public class RelopNode  implements ExpressionNode{
                 (right.equals("Double") && left.equals("Double"));
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             }
@@ -115,7 +115,7 @@ public class RelopNode  implements ExpressionNode{
                 (left.equals("Double") && !((NumberNode)rightOperand).isInteger());
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else if(rightOperand instanceof IDNode) {
@@ -124,7 +124,7 @@ public class RelopNode  implements ExpressionNode{
                 (right.equals("Double") && left.equals("Double"));
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             } else {
@@ -133,7 +133,7 @@ public class RelopNode  implements ExpressionNode{
                 (right.equals("Double") && left.equals("Double"));
                 if(!answer) {
                     System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                relation.getFilename() + ":" + relation.getLineNum() + "\n");
+                                                relation.getFilename() + ":" + relation.getLineNum());
                 }
                 return answer;
             }

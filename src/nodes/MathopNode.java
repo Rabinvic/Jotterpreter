@@ -90,7 +90,7 @@ public class MathopNode  implements ExpressionNode{
             leftType.equals("Boolean") ||
             leftType.equals("Void")) {
             System.err.println("Semantic Error:\n" + "cannot evaluate using left operand's type\n" +
-            math.getFilename() + ":" + math.getLineNum() + "\n");
+            math.getFilename() + ":" + math.getLineNum());
             return false;
         }
         // determine if left operand is an integer
@@ -109,14 +109,14 @@ public class MathopNode  implements ExpressionNode{
                 double rightValue = Double.parseDouble(((NumberNode)rightOperand).convertToJott());
                 if (rightValue == 0.0) {
                     System.err.println("Semantic Error:\n" + "Division by Zero is not allowed\n" +
-                                       math.getFilename() + ":" + math.getLineNum() + "\n");
+                                       math.getFilename() + ":" + math.getLineNum());
                     return false;
                 }
             }
 
             if (!answer)
                 System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                                math.getFilename() + ":" + math.getLineNum() + "\n");
+                                                math.getFilename() + ":" + math.getLineNum());
             return answer;
         } else if (rightOperand instanceof IDNode) {
             rightType = SymbolTable.getLocalSymTable().get(((IDNode)rightOperand).getID());
@@ -129,7 +129,7 @@ public class MathopNode  implements ExpressionNode{
             leftType.equals("Boolean") ||
             leftType.equals("Void")) {
             System.err.println("Semantic Error:\n" + "cannot evaluate using right operand's type\n" +
-            math.getFilename() + ":" + math.getLineNum() + "\n");
+            math.getFilename() + ":" + math.getLineNum());
             return false;
         }
 
@@ -137,7 +137,7 @@ public class MathopNode  implements ExpressionNode{
         boolean answer = (rightType.equals("Integer") && leftInt) || (rightType.equals("Double") && !leftInt);
         if (!answer)
             System.err.println("Semantic Error:\n" + "both operands are not of the same type\n" +
-                                            math.getFilename() + ":" + math.getLineNum() + "\n");
+                                            math.getFilename() + ":" + math.getLineNum());
         return answer;
     }
 

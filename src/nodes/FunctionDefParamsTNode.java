@@ -56,7 +56,7 @@ public class FunctionDefParamsTNode implements JottTree{
         }
         if(SymbolTable.getLocalSymTable().containsKey(id.getID())) {
             System.err.println("Semantic Error:\n" + "the variable " + id.getID() + " already exists in this function\n" +
-            id.getFilename() + ":" + id.getLineNum() + "\n");
+            id.getFilename() + ":" + id.getLineNum());
             return false;
         }
         SymbolTable.addLocalVar(type.convertToJott(), id.getID());

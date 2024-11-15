@@ -62,38 +62,38 @@ public class AsmtNode implements Body_StmtNode{
         String varType = SymbolTable.getLocalSymTable().get(id.getID());
         if(varType == null) {
             System.err.println("Semantic Error:\n" + "attempting to assign a variable that hasn't been declared\n" +
-            id.getFilename() + ":" + id.getLineNum() + "\n");
+            id.getFilename() + ":" + id.getLineNum());
             return false;
         }
         if(expr instanceof String_literalNode) {
             if(varType != "String") {
                 System.err.println("Semantic Error:\n" + "String variable cannot be assigned a non string value\n" +
-                id.getFilename() + ":" + id.getLineNum() + "\n");
+                id.getFilename() + ":" + id.getLineNum());
                 return false;
             }
         } else if(expr instanceof BoolNode || expr instanceof RelopNode) {
             if(!varType.equals("Boolean")) {
                 System.err.println("Semantic Error:\n" + "Boolean variable cannot be assigned a non boolean value\n" +
-                id.getFilename() + ":" + id.getLineNum() + "\n");
+                id.getFilename() + ":" + id.getLineNum());
                 return false;
             }
         } else if(expr instanceof MathopNode) { 
             if(!((MathopNode)expr).MathopType().equals(varType)) {
                 System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
-                id.getFilename() + ":" + id.getLineNum() + "\n");
+                id.getFilename() + ":" + id.getLineNum());
                 return false;
             }
         }else { // operandNode
             if(expr instanceof IDNode) {
                 if(!SymbolTable.getLocalSymTable().get(((IDNode)expr).getID()).equals(varType)) {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
-                    id.getFilename() + ":" + id.getLineNum() + "\n");
+                    id.getFilename() + ":" + id.getLineNum());
                     return false;
                 }
             } else if(expr instanceof FunctionCallNode) {
                 if(!SymbolTable.getFunctionReturn(((FunctionCallNode)expr).getFuncName()).equals(varType)) {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
-                    id.getFilename() + ":" + id.getLineNum() + "\n");
+                    id.getFilename() + ":" + id.getLineNum());
                     return false;
                 }
             } else {
@@ -101,7 +101,7 @@ public class AsmtNode implements Body_StmtNode{
                     return true;
                 } else {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
-                    id.getFilename() + ":" + id.getLineNum() + "\n");
+                    id.getFilename() + ":" + id.getLineNum());
                     return false;
                 }
             }

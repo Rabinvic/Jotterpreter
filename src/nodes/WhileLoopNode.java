@@ -91,28 +91,28 @@ public class WhileLoopNode implements Body_StmtNode{
         if(expr instanceof MathopNode || expr instanceof String_literalNode) {
             if(expr instanceof MathopNode){
                 System.err.println("Semantic Error:\n" + "attempting to use non conditional statement as condition for while loop\n" +
-            ((MathopNode)expr).getFilename() + ":" + ((MathopNode)expr).getLineNum() + "\n");
+            ((MathopNode)expr).getFilename() + ":" + ((MathopNode)expr).getLineNum());
             } else {
                 System.err.println("Semantic Error:\n" + "attempting to use non conditional statement as condition for while loop\n" +
-                ((String_literalNode)expr).getFilename() + ":" + ((String_literalNode)expr).getLineNum() + "\n");
+                ((String_literalNode)expr).getFilename() + ":" + ((String_literalNode)expr).getLineNum());
             }
             return false;
         } else if(expr instanceof OperandNode) {
             if(expr instanceof IDNode) {
                 if(!SymbolTable.getLocalSymTable().get(((IDNode)expr).getID()).equals("Boolean")) {
                     System.err.println("Semantic Error:\n" + "attempting to use non conditional statement as condition for while loop\n" +
-                    ((IDNode)expr).getFilename() + ":" + ((IDNode)expr).getLineNum() + "\n");
+                    ((IDNode)expr).getFilename() + ":" + ((IDNode)expr).getLineNum());
                     return false;
                 }
             } else if(expr instanceof FunctionCallNode) {
                 if(!SymbolTable.getFunctionReturn(((FunctionCallNode)expr).getFuncName()).equals("Boolean")) {
                     System.err.println("Semantic Error:\n" + "attempting to use non conditional statement as condition for while loop\n" +
-                    ((FunctionCallNode)expr).getFilename() + ":" + ((FunctionCallNode)expr).getLineNum() + "\n");
+                    ((FunctionCallNode)expr).getFilename() + ":" + ((FunctionCallNode)expr).getLineNum());
                     return false;
                 }
             } else {
                 System.err.println("Semantic Error:\n" + "attempting to use non conditional statement as condition for while loop\n" +
-                ((NumberNode)expr).getFilename() + ":" + ((NumberNode)expr).getLineNum() + "\n");
+                ((NumberNode)expr).getFilename() + ":" + ((NumberNode)expr).getLineNum());
                 return false;
             }
         }
