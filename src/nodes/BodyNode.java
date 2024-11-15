@@ -70,6 +70,16 @@ public class BodyNode implements JottTree{
         if (!returnStmt.validateTree()) {
             return false;
         }
+        if(returnStmt.notFinished()) {
+            for(int i = 0; i < bodyStmts.size(); i++) {
+                if(bodyStmts.get(i) instanceof If_StmtNode) {
+                    if(!((If_StmtNode)bodyStmts.get(i)).hasReturn()) {
+                        //add error message
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 
@@ -91,6 +101,14 @@ public class BodyNode implements JottTree{
         }
 
         return false;
+    }
+
+    public boolean containsReturn() {
+        if(returnStmt.returnExists()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void execute() {

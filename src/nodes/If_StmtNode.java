@@ -170,6 +170,23 @@ public class If_StmtNode implements Body_StmtNode{
         
         return ifStmtReturns && allElseIfsReturn && elseStmtReturns;
     }
+
+    public boolean hasReturn() {
+        if(!body.containsReturn()) {
+            return false;
+        }
+        if(elseIfs.size() >= 1) {
+            for(int i = 0; i < elseIfs.size(); i++) {
+                if(!elseIfs.get(i).elseIfContainsReturn()) {
+                    return false;
+                }
+            }
+        }
+        if(!els.ElseContainsReturn()) {
+            return false;
+        }
+        return true;
+    }
     public void execute(){
 
     }

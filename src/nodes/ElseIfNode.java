@@ -124,4 +124,13 @@ public class ElseIfNode implements Body_StmtNode{
     public void execute(){
 
     }
+
+    public boolean elseIfContainsReturn() {
+        if(body.containsReturn()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

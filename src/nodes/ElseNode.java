@@ -83,4 +83,16 @@ public class ElseNode implements Body_StmtNode{
     public void execute(){
 
     }
+
+    public boolean ElseContainsReturn() {
+        if(body == null) {
+            return true;
+        }
+        if(body.containsReturn()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

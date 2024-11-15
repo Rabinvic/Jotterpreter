@@ -59,16 +59,74 @@ public class Return_StmtNode implements JottTree{
 
     // presumably done (NOT DONE??)
     public boolean validateTree() {
-        if(exp == null) {
+        if(exp == null && SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
+            return true;
+        } else if(exp == null && !SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
             return true;
         }
+
         if(!exp.validateTree()) {
             return false;
         }
-        if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
-
+        if(exp instanceof RelopNode || exp instanceof BoolNode) {
+            if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Boolean")) {
+                //add error message
+                return false;
+            }
+        } else if(exp instanceof String_literalNode) {
+            if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("String")) {
+                //add error message
+                return false;
+            }
+        } else if(exp instanceof MathopNode) {
+            if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(((MathopNode)exp).MathopType())) {
+                //add error message
+                return false;
+            }
+        } else {
+            if(exp instanceof IDNode) {
+                if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(SymbolTable.getLocalSymTable().get(((IDNode)exp).getID()))) {
+                    //add error message
+                    return false;
+                }
+            } else if(exp instanceof FunctionCallNode) {
+                if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(SymbolTable.getFunctionReturn(((FunctionCallNode)exp).getFuncName()))) {
+                    //add error message
+                    return false;
+                }
+            } else {
+                String numType;
+                if(((NumberNode)exp).isInteger()) {
+                    numType = "Integer";
+                } else {
+                    numType = "Double";
+                }
+                if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(numType)) {
+                    //add error message
+                    return false;
+                }
+            }
         }
+        //if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
+
+        //}
         return true;
+    }
+
+    public boolean returnExists() {
+        if(exp != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean notFinished() {
+        if(exp == null && !SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void execute() {
