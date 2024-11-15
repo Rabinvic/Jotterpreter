@@ -158,7 +158,8 @@ public class FunctionDefNode implements JottTree {
                 }
             }
         }
-        SymbolTable.addFunction(name, fr.convertToJott(), paramTypes);
+        SymbolTable.addFunction(name, fr.convertToJott(), paramTypes, this.id.getFilename(), this.id.getLineNum());
+
         if(!fdp.validateTree() || !fr.validateTree() || !fbody.validateTree()) {
             return false;
         }

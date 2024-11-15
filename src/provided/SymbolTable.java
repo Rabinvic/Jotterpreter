@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class SymbolTable {
     // This stores the current function that we are in!
     public static String currentFunc;
+    public static String funcFile;
+    public static int funcLine;
 
     // This just stores <Key, Value> pairs of <Function Name, Type>
     public static HashMap<String, String> funcTypes = new HashMap<String, String>();
@@ -15,13 +17,15 @@ public class SymbolTable {
     // This stores <Key, <Key, Value>> pairs of <Function Name, <Variable Name, Type>>
     public static HashMap<String, HashMap<String,String>> funcTables = new HashMap<String, HashMap<String,String>>();
 
-    public static void addFunction(String functionName, String returnType, ArrayList<String> params){
+    public static void addFunction(String functionName, String returnType, ArrayList<String> params, String filename, int linenum){
         funcTypes.put(functionName, returnType);
         funcParamTypes.put(functionName, params);
         HashMap<String,String> functionTable = new HashMap<String,String>();
         funcTables.put(functionName, functionTable);
 
         currentFunc = functionName;
+        funcFile = filename;
+        funcLine = linenum;
     }
 
     public static HashMap<String, String> getLocalSymTable(){
@@ -39,4 +43,5 @@ public class SymbolTable {
     public static void addLocalVar(String type, String id){
         funcTables.get(currentFunc).put(id, type);
     }
+
 }

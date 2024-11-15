@@ -2,6 +2,7 @@ package nodes;
 import java.util.ArrayList;
 
 import provided.JottTree;
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -75,6 +76,8 @@ public class BodyNode implements JottTree{
                 if(bodyStmts.get(i) instanceof If_StmtNode) {
                     if(!((If_StmtNode)bodyStmts.get(i)).hasReturn()) {
                         //add error message
+                        System.err.println("Semantic Error:\n" +SymbolTable.currentFunc + "missing a return statement\n" +
+                                       SymbolTable.funcFile + ":" + SymbolTable.funcLine + "\n");
                         return false;
                     }
                 }

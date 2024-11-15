@@ -107,6 +107,8 @@ public class Return_StmtNode implements JottTree{
                     numType = "Double";
                 }
                 if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(numType)) {
+                    System.err.println("Semantic Error:\n" + "Return value does not match current function\n" +
+                                       exp.getFilename() + ":" + exp.getLineNum() + "\n");
                     //add error message
                     return false;
                 }
