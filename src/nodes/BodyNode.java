@@ -96,6 +96,10 @@ public class BodyNode implements JottTree{
         if (bodyStmts == null) {
             return false;
         }
+
+        if (returnStmt.exp != null) {
+            return true;
+        }
         // first just check all statements in it
         for (Body_StmtNode body_StmtNode : bodyStmts) {
             if(body_StmtNode instanceof Return_StmtNode) {
