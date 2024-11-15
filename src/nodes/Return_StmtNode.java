@@ -70,26 +70,26 @@ public class Return_StmtNode implements JottTree{
         }
         if(exp instanceof RelopNode || exp instanceof BoolNode) {
             if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Boolean")) {
-                System.err.println("Semantic Error:\n" + "Cannot return boolean for non-boolean function\n" +
+                System.err.println("Semantic Error:\n" + "Return value doesn't match function return\n" +
                                        exp.getFilename() + ":" + exp.getLineNum() + "\n");
                 return false;
             }
         } else if(exp instanceof String_literalNode) {
             if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("String")) {
-                System.err.println("Semantic Error:\n" + "Cannot return string for non-string function\n" +
+                System.err.println("Semantic Error:\n" + "Return value doesn't match function return\n" +
                                        exp.getFilename() + ":" + exp.getLineNum() + "\n");
                 return false;
             }
         } else if(exp instanceof MathopNode) {
             if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(((MathopNode)exp).MathopType())) {
-                System.err.println("Semantic Error:\n" + "Cannot return boolean for non-boolean function\n" +
+                System.err.println("Semantic Error:\n" + "Return value doesn't match function return\n" +
                                        exp.getFilename() + ":" + exp.getLineNum() + "\n");
                 return false;
             }
         } else {
             if(exp instanceof IDNode) {
                 if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(SymbolTable.getLocalSymTable().get(((IDNode)exp).getID()))) {
-                    System.err.println("Semantic Error:\n" + "Cannot return boolean for non-boolean function\n" +
+                    System.err.println("Semantic Error:\n" + "Return value doesn't match function return\n" +
                                        exp.getFilename() + ":" + exp.getLineNum() + "\n");
                     return false;
                 }
@@ -109,14 +109,10 @@ public class Return_StmtNode implements JottTree{
                 if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals(numType)) {
                     System.err.println("Semantic Error:\n" + "Return value does not match current function\n" +
                                        exp.getFilename() + ":" + exp.getLineNum() + "\n");
-                    //add error message
                     return false;
                 }
             }
         }
-        //if(!SymbolTable.getFunctionReturn(SymbolTable.currentFunc).equals("Void")) {
-
-        //}
         return true;
     }
 
