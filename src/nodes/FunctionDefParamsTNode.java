@@ -2,7 +2,7 @@ package nodes;
 import java.util.ArrayList;
 
 import provided.JottTree;
-
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -54,6 +54,12 @@ public class FunctionDefParamsTNode implements JottTree{
         if(!id.validateTree() || !type.validateTree()) {
             return false;
         }
+        if(SymbolTable.getLocalSymTable().containsKey(id.getID())) {
+            System.err.println("Semantic Error:\n" + "the variable " + id.getID() + " already exists in this function\n" +
+            id.getFilename() + ":" + id.getLineNum() + "\n");
+            return false;
+        }
+        SymbolTable.addLocalVar(type.convertToJott(), id.getID());
         return true;
     }
 
