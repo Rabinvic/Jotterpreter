@@ -49,4 +49,7 @@ public interface OperandNode extends ExpressionNode{
     public boolean validateTree();
     public String convertToJott();
     public void execute();
+
+    public String getFilename();
+    public int getLineNum();
 }

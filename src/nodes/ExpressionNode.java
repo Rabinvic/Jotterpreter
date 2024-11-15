@@ -81,4 +81,7 @@ public interface ExpressionNode extends JottTree{
     public boolean validateTree();
     public String convertToJott();
     public void execute();
+
+    public String getFilename();
+    public int getLineNum();
 }

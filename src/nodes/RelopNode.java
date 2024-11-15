@@ -143,4 +143,11 @@ public class RelopNode  implements ExpressionNode{
     public void execute() {
 
     }
+
+    public String getFilename() {
+        return relation.getFilename();
+    }
+    public int getLineNum() {
+        return relation.getLineNum();
+    }
 }

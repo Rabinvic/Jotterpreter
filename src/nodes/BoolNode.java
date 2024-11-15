@@ -38,4 +38,12 @@ public class BoolNode implements ExpressionNode {
     public void execute() {
 
     }
+
+    public String getFilename() {
+        return bool.getFilename();
+    }
+    public int getLineNum() {
+        return bool.getLineNum();
+    }
 }
+
