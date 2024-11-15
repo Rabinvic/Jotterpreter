@@ -39,7 +39,7 @@ public class IDNode implements OperandNode{
         }
         if (Character.isUpperCase(tokens.get(0).getToken().charAt(0))) {
             System.err.println("Syntax Error:\n can't parse keyword as id node\n" + tokens.get(0).getFilename() + 
-            ":" + tokens.get(0).getLineNum() +"\n");
+            ":" + tokens.get(0).getLineNum());
             return null;
         }
         return new IDNode(tokens.remove(0));

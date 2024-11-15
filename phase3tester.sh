@@ -9,6 +9,7 @@ for file in ../phase3testcases/*.jott; do
     if [[ -f "$file" ]]; then
         echo "Running Jott on $file"
         java Jott "$file"
+        echo ""
     else
         echo "No .jott files found in '../phase3testcases'"
         break
