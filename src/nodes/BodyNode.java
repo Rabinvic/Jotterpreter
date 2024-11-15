@@ -93,6 +93,9 @@ public class BodyNode implements JottTree{
     }
 
     public boolean hasReturnStmt() {
+        if (returnStmt.exp != null) {
+            return true;
+        }
         if (bodyStmts == null) {
             return false;
         }

@@ -158,15 +158,20 @@ public class If_StmtNode implements Body_StmtNode{
             ifStmtReturns = true;
         }
 
-        for (ElseIfNode elseIfNode : elseIfs) {
-            if(!elseIfNode.guaranteesReturn()) {
-                allElseIfsReturn = false;
+        if (elseIfs != null) {
+            for (ElseIfNode elseIfNode : elseIfs) {
+                if(!elseIfNode.guaranteesReturn()) {
+                    allElseIfsReturn = false;
+                }
+            }  
+        }
+        
+        if (els != null) {
+            if(els.guaranteesReturn()) {
+                elseStmtReturns = true;
             }
         }
         
-        if(els.guaranteesReturn()) {
-            elseStmtReturns = true;
-        }
         
         return ifStmtReturns && allElseIfsReturn && elseStmtReturns;
     }

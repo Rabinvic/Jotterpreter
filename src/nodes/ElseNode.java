@@ -64,7 +64,7 @@ public class ElseNode implements Body_StmtNode{
 
     // erm its self documenting code basically just read it -ETHAN
     public boolean guaranteesReturn() {
-        if (body.hasReturnStmt()) {
+        if (body != null && body.hasReturnStmt()) {
             return true;
         }
         return false;
