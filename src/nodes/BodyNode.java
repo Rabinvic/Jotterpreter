@@ -93,12 +93,11 @@ public class BodyNode implements JottTree{
     }
 
     public boolean hasReturnStmt() {
-        if (bodyStmts == null) {
-            return false;
-        }
-
         if (returnStmt.exp != null) {
             return true;
+        }
+        if (bodyStmts == null) {
+            return false;
         }
         // first just check all statements in it
         for (Body_StmtNode body_StmtNode : bodyStmts) {
