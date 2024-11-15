@@ -76,7 +76,7 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
             return false;
         }
 
-        if(!SymbolTable.funcTypes.containsKey(name.getID())) {
+        if(!SymbolTable.funcTypes.containsKey(name.getID()) && (!name.getID().equals("print") || !name.getID().equals("concat") || !name.getID().equals("length"))) {
             System.err.println("Semantic Error:\n" + "attempting to call function that hasn't been defined\n" +
                     name.getFilename() + ":" + name.getLineNum() + "\n");
             return false;
