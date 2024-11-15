@@ -108,8 +108,80 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
             }
             
         } else if(name.getID().equals("concat")){
+            ArrayList<ExpressionNode> parameters = params.paramsHelper();
+            if(parameters == null) {
+                System.err.println("Semantic Error:\n" + "passed in no parameters when parameters are needed\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            if(parameters.size() != 2){
+                System.err.println("Semantic Error:\n" + "incorrect number of parameters\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            for(ExpressionNode param : parameters){
+                if (param instanceof String_literalNode) {
+                    continue;   
+                }
+                if (param instanceof FunctionCallNode) {
+                    FunctionCallNode func = (FunctionCallNode) param;
+                    if(!SymbolTable.getFunctionReturn(func.getFuncName()).equals("String") || !func.getFuncName().equals("concat")){
+                        System.err.println("Semantic Error:\n" + "can not print a function that doesn't return a string\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                }
+                if (param instanceof IDNode) {
+                    IDNode var = (IDNode) param;
+                    if(!SymbolTable.getLocalSymTable().get(var.getID()).equals("String")){
+                        System.err.println("Semantic Error:\n" + "can not print a non string variable\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                }
+
+            }
+
+            return true;
 
         } else if (name.getID().equals("length")) {
+            ArrayList<ExpressionNode> parameters = params.paramsHelper();
+            if(parameters == null) {
+                System.err.println("Semantic Error:\n" + "passed in no parameters when parameters are needed\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            if(parameters.size() != 1){
+                System.err.println("Semantic Error:\n" + "incorrect number of parameters\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            ExpressionNode param = parameters.get(0);
+            if (param instanceof String_literalNode) {
+                return true;   
+            }
+            if (param instanceof FunctionCallNode) {
+                FunctionCallNode func = (FunctionCallNode) param;
+                if(!SymbolTable.getFunctionReturn(func.getFuncName()).equals("String") || !func.getFuncName().equals("concat")){
+                    System.err.println("Semantic Error:\n" + "can not print a function that doesn't return a string\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                    return false;
+                }
+            }
+            if (param instanceof IDNode) {
+                IDNode var = (IDNode) param;
+                if(!SymbolTable.getLocalSymTable().get(var.getID()).equals("String")){
+                    System.err.println("Semantic Error:\n" + "can not print a non string variable\n" +
+                    name.getFilename() + ":" + name.getLineNum() + "\n");
+                    return false;
+                }
+            }
+
+            return true;
             
         } else {
             if(!SymbolTable.funcTypes.containsKey(name.getID())) {
