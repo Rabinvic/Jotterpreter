@@ -2,6 +2,7 @@ package nodes;
 import java.util.ArrayList;
 
 import provided.JottTree;
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -95,6 +96,7 @@ public class FunctionDefParamsNode implements JottTree{
         if(!id.validateTree() || !type.validateTree()) {
             return false;
         }
+        SymbolTable.addLocalVar(type.convertToJott(), id.getID());
         for(FunctionDefParamsTNode fdpt: paramTs) {
             if(!fdpt.validateTree()) {
                 return false;
