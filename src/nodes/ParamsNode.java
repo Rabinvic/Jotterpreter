@@ -16,8 +16,12 @@ public class ParamsNode implements JottTree{
 
     public ArrayList<ExpressionNode> paramsHelper() {
         ArrayList<ExpressionNode> params = new ArrayList<ExpressionNode>();
-        if(paramTs == null) {
+        if (expr == null){
             return null;
+        }
+        if(paramTs == null) {
+            params.add(expr);
+            return params;
         }
         for(ParamsTNode param: paramTs) {
             params.add(param.paramsTHelper());

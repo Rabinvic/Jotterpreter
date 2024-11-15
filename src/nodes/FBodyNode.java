@@ -58,6 +58,13 @@ public class FBodyNode implements JottTree {
     }
 
     public boolean validateTree() {
+        if (vardecs != null) {
+            for(Var_DecNode dec : vardecs){
+                if(!dec.validateTree()){
+                    return false;
+                }
+            }            
+        }
         if (!body.validateTree()) { 
             return false;
         }
