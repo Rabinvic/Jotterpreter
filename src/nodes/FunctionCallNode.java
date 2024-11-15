@@ -76,6 +76,49 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
             return false;
         }
 
+        if(name.getID().equals("print")){
+
+            ArrayList<ExpressionNode> parameters = params.paramsHelper();
+            if(parameters == null) {
+                System.err.println("Semantic Error:\n" + "passed in no parameters when parameters are needed\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            if(parameters.size() != 1){
+                System.err.println("Semantic Error:\n" + "incorrect number of parameters\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+
+            if(!(parameters.get(0) instanceof ExpressionNode)){
+                System.err.println("Semantic Error:\n" + "invalid parameter passed\n" +
+                name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            } else {
+                if (parameters.get(0) instanceof FunctionCallNode) {
+                    FunctionCallNode func = (FunctionCallNode) parameters.get(0);
+                    if(SymbolTable.getFunctionReturn(func.getFuncName()).equals("Void")){
+                        System.err.println("Semantic Error:\n" + "can not print a function of type Void\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+        } else if(name.getID().equals("concat")){
+
+        } else if (name.getID().equals("length")) {
+            
+        } else {
+            if(!SymbolTable.funcTypes.containsKey(name.getID())) {
+                System.err.println("Semantic Error:\n" + "attempting to call function that hasn't been defined\n" +
+                        name.getFilename() + ":" + name.getLineNum() + "\n");
+                return false;
+            }
+        }
+
         if(!SymbolTable.funcTypes.containsKey(name.getID()) && (!name.getID().equals("print") || !name.getID().equals("concat") || !name.getID().equals("length"))) {
             System.err.println("Semantic Error:\n" + "attempting to call function that hasn't been defined\n" +
                     name.getFilename() + ":" + name.getLineNum() + "\n");
