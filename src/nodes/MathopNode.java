@@ -142,7 +142,49 @@ public class MathopNode  implements ExpressionNode{
     }
 
     public void execute() {
+        leftOperand.execute();
+        rightOperand.execute();
 
+        if (this.MathopType().equals("Integer")) {
+            Integer result = null;
+            switch (math.getToken()) {
+                case "/":
+                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) / Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "*":
+                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "+":
+                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "-":
+                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    break;
+            }
+            SymbolTable.vals.put(this, result.toString());
+            
+        } else {
+            Double result = null;
+            switch (math.getToken()) {
+                case "/":
+                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) / Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "*":
+                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) * Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "+":
+                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) + Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    break;
+                case "-":
+                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) - Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    break;
+            }
+            SymbolTable.vals.put(this, result.toString());
+        }
+        
+        
     }
+
+
 
 }

@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -41,8 +42,9 @@ public class NumberNode implements OperandNode{
     }
 
     public void execute() {
-
+        SymbolTable.vals.put(this, value.getToken());
     }
+
     public Boolean isInteger(){
         if(value.getToken().contains(".")) {
             return false;

@@ -17,6 +17,8 @@ public class SymbolTable {
     // This stores <Key, <Key, Value>> pairs of <Function Name, <Variable Name, Type>>
     public static HashMap<String, HashMap<String,String>> funcTables = new HashMap<String, HashMap<String,String>>();
 
+    public static HashMap<JottTree, String> vals = new HashMap<JottTree, String>();
+
     public static void addFunction(String functionName, String returnType, ArrayList<String> params, String filename, int linenum){
         funcTypes.put(functionName, returnType);
         funcParamTypes.put(functionName, params);
