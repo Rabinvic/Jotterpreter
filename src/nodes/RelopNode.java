@@ -141,7 +141,44 @@ public class RelopNode  implements ExpressionNode{
     }
 
     public void execute() {
+        leftOperand.execute();
+        rightOperand.execute();
 
+        String left;
+        if(leftOperand instanceof IDNode) {
+            left = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)leftOperand).getID());
+        } else {
+            left = SymbolTable.vals.get(leftOperand);
+        }
+        String right;
+        if(rightOperand instanceof IDNode) {
+            right = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)rightOperand).getID());
+        } else {
+            right = SymbolTable.vals.get(rightOperand);
+        }
+
+        Boolean result = null;
+        switch (relation.getToken()) {
+            case "!=":
+                result = Double.parseDouble(left) != Double.parseDouble(right);
+                break;
+            case "==":
+                result = Double.parseDouble(left) == Double.parseDouble(right);
+                break;
+            case "<=":
+                result = Double.parseDouble(left) <= Double.parseDouble(right);
+                break;
+            case ">=":
+                result = Double.parseDouble(left) >= Double.parseDouble(right);
+                break;
+            case "<":
+                result = Double.parseDouble(left) < Double.parseDouble(right);
+                break;
+            case ">":
+                result = Double.parseDouble(left) > Double.parseDouble(right);
+                break;
+        }
+        SymbolTable.vals.put(this, result.toString());
     }
 
     public String getFilename() {

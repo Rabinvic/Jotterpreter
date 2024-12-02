@@ -1,5 +1,9 @@
 package provided;
 import java.util.HashMap;
+import java.util.Stack;
+
+import nodes.FBodyNode;
+
 import java.util.ArrayList;
 
 public class SymbolTable {
@@ -18,6 +22,9 @@ public class SymbolTable {
     public static HashMap<String, HashMap<String,String>> funcTables = new HashMap<String, HashMap<String,String>>();
 
     public static HashMap<JottTree, String> vals = new HashMap<JottTree, String>();
+
+    public static Stack<String> currentCalledFunc = new Stack<>();
+    public static HashMap<String, FBodyNode> fbodys = new HashMap<String, FBodyNode>();
 
     public static void addFunction(String functionName, String returnType, ArrayList<String> params, String filename, int linenum){
         funcTypes.put(functionName, returnType);

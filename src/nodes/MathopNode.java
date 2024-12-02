@@ -145,20 +145,34 @@ public class MathopNode  implements ExpressionNode{
         leftOperand.execute();
         rightOperand.execute();
 
+        String left;
+        if(leftOperand instanceof IDNode) {
+            left = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)leftOperand).getID());
+        } else {
+            left = SymbolTable.vals.get(leftOperand);
+        }
+        String right;
+        if(rightOperand instanceof IDNode) {
+            right = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)leftOperand).getID());
+        } else {
+            right = SymbolTable.vals.get(rightOperand);
+        }
+
+        //this might be a problem. Can we use MathopType()?
         if (this.MathopType().equals("Integer")) {
             Integer result = null;
             switch (math.getToken()) {
                 case "/":
-                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) / Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    result = Integer.parseInt(left) / Integer.parseInt(right);
                     break;
                 case "*":
-                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    result = Integer.parseInt(left) * Integer.parseInt(right);
                     break;
                 case "+":
-                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    result = Integer.parseInt(left) * Integer.parseInt(right);
                     break;
                 case "-":
-                    result = Integer.parseInt(SymbolTable.vals.get(leftOperand)) * Integer.parseInt(SymbolTable.vals.get(rightOperand));
+                    result = Integer.parseInt(left) * Integer.parseInt(right);
                     break;
             }
             SymbolTable.vals.put(this, result.toString());
@@ -167,16 +181,16 @@ public class MathopNode  implements ExpressionNode{
             Double result = null;
             switch (math.getToken()) {
                 case "/":
-                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) / Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    result = Double.parseDouble(left) / Double.parseDouble(right);
                     break;
                 case "*":
-                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) * Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    result = Double.parseDouble(left) * Double.parseDouble(right);
                     break;
                 case "+":
-                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) + Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    result = Double.parseDouble(left) + Double.parseDouble(right);
                     break;
                 case "-":
-                    result = Double.parseDouble(SymbolTable.vals.get(leftOperand)) - Double.parseDouble(SymbolTable.vals.get(rightOperand));
+                    result = Double.parseDouble(left) - Double.parseDouble(right);
                     break;
             }
             SymbolTable.vals.put(this, result.toString());

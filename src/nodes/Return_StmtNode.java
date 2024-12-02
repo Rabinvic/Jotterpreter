@@ -133,6 +133,21 @@ public class Return_StmtNode implements JottTree{
     }
 
     public void execute() {
-
+        exp.execute();
+        if(exp instanceof RelopNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((RelopNode)exp));
+        } else if(exp instanceof MathopNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((MathopNode)exp));
+        } else if(exp instanceof String_literalNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((String_literalNode)exp));
+        } else if(exp instanceof BoolNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((BoolNode)exp));
+        } else if(exp instanceof FunctionCallNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((FunctionCallNode)exp));
+        } else if(exp instanceof NumberNode) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get((NumberNode)exp));
+        } else {
+            SymbolTable.vals.put(this, SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)exp).getID()));
+        }
     }
 }

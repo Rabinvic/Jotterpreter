@@ -4,6 +4,7 @@ package nodes;
 **/
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import provided.*;
 
@@ -11,9 +12,13 @@ public class FBodyNode implements JottTree {
     private ArrayList<Var_DecNode> vardecs;
     private BodyNode body;
 
+    public HashMap<String, String> varValues;
+
     public FBodyNode(ArrayList<Var_DecNode> vardecs, BodyNode body) {
         this.vardecs = vardecs;
         this.body = body;
+        
+        varValues = new HashMap<String, String>();
     }
 
     public static FBodyNode parseFBodyNode(ArrayList<Token> tokens) {
