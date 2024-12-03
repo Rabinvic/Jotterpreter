@@ -146,13 +146,17 @@ public class RelopNode  implements ExpressionNode{
 
         String left;
         if(leftOperand instanceof IDNode) {
-            left = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)leftOperand).getID());
+            String currentFunc = SymbolTable.currentCalledFunc.peek();
+            String idOfOperand = ((IDNode)leftOperand).getID();
+            left = SymbolTable.fbodys.get(currentFunc).varValues.get(idOfOperand);
         } else {
             left = SymbolTable.vals.get(leftOperand);
         }
         String right;
         if(rightOperand instanceof IDNode) {
-            right = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)rightOperand).getID());
+            String currentFunc = SymbolTable.currentCalledFunc.peek();
+            String idOfOperand = ((IDNode)rightOperand).getID();
+            right = SymbolTable.fbodys.get(currentFunc).varValues.get(idOfOperand);
         } else {
             right = SymbolTable.vals.get(rightOperand);
         }
