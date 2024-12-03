@@ -153,7 +153,7 @@ public class MathopNode  implements ExpressionNode{
         }
         String right;
         if(rightOperand instanceof IDNode) {
-            right = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)leftOperand).getID());
+            right = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)rightOperand).getID());
         } else {
             right = SymbolTable.vals.get(rightOperand);
         }
