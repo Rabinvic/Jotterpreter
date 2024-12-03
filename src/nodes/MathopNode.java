@@ -169,10 +169,10 @@ public class MathopNode  implements ExpressionNode{
                     result = Integer.parseInt(left) * Integer.parseInt(right);
                     break;
                 case "+":
-                    result = Integer.parseInt(left) * Integer.parseInt(right);
+                    result = Integer.parseInt(left) + Integer.parseInt(right);
                     break;
                 case "-":
-                    result = Integer.parseInt(left) * Integer.parseInt(right);
+                    result = Integer.parseInt(left) - Integer.parseInt(right);
                     break;
             }
             SymbolTable.vals.put(this, result.toString());
