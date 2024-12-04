@@ -273,7 +273,7 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
 
     public void execute() {
         params.execute();
-        name.execute();
+        //name.execute();
         if(params.returnParams() != null) {
             for (int i = 0; i < SymbolTable.funcParamNames.size(); i++) {
                 SymbolTable.fbodys.get(name.getID()).varValues.put(SymbolTable.funcParamNames.get(name.getID()).get(i), params.returnParams().get(i));
@@ -283,5 +283,6 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
         SymbolTable.fbodys.get(name.getID()).execute();
         SymbolTable.currentCalledFunc.pop();
         SymbolTable.fbodys.get(name.getID()).varValues = new HashMap<String, String>();
+        SymbolTable.vals.put(this, SymbolTable.vals.get(SymbolTable.fbodys.get(name.getID())));
     }
 }
