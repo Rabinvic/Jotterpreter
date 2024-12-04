@@ -3,6 +3,7 @@
 **/
 package nodes;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import provided.SymbolTable;
 import provided.Token;
@@ -271,6 +272,16 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
     }
 
     public void execute() {
-        
+        params.execute();
+        name.execute();
+        if(params.returnParams() != null) {
+            for (int i = 0; i < SymbolTable.funcParamNames.size(); i++) {
+                SymbolTable.fbodys.get(name.getID()).varValues.put(SymbolTable.funcParamNames.get(name.getID()).get(i), params.returnParams().get(i));
+            }
+        }
+        SymbolTable.currentCalledFunc.push(name.getID());
+        SymbolTable.fbodys.get(name.getID()).execute();
+        SymbolTable.currentCalledFunc.pop();
+        SymbolTable.fbodys.get(name.getID()).varValues = new HashMap<String, String>();
     }
 }

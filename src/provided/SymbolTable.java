@@ -25,6 +25,8 @@ public class SymbolTable {
 
     public static Stack<String> currentCalledFunc = new Stack<>();
     public static HashMap<String, FBodyNode> fbodys = new HashMap<String, FBodyNode>();
+    //stores <Function Name, [param name1, param name2,...]>
+    public static HashMap<String, ArrayList<String>> funcParamNames = new HashMap<String, ArrayList<String>>();
 
     public static void addFunction(String functionName, String returnType, ArrayList<String> params, String filename, int linenum){
         funcTypes.put(functionName, returnType);

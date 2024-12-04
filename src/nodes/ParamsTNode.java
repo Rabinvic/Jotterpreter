@@ -1,7 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 import provided.JottTree;
-
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -25,7 +25,7 @@ public class ParamsTNode implements JottTree{
     }
 
     public void execute() {
-
+        expr.execute();
     }
     
     public static ParamsTNode parseParamsTNode(ArrayList<Token> tokens) {
@@ -45,4 +45,10 @@ public class ParamsTNode implements JottTree{
         return new ParamsTNode(expr);
     }
 
+    public String returnParam() {
+        if(expr instanceof IDNode) {
+            return SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+        }
+        return SymbolTable.vals.get(expr);
+    }
 }
