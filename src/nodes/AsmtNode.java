@@ -110,7 +110,15 @@ public class AsmtNode implements Body_StmtNode{
         return true;
     }
     public void execute() {
-        
-    }
+        // compute the value of the expression first
+        expr.execute();
 
+        String currentFunc = SymbolTable.currentCalledFunc.peek();
+        String value = SymbolTable.vals.get(expr);
+
+        SymbolTable.fbodys.get(currentFunc).varValues.put(id.getID(), value);
+
+        // call id's execute at the end so that its value is updated into symboltable.vals
+        id.execute();
+    }
 }

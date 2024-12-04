@@ -145,6 +145,7 @@ public class MathopNode  implements ExpressionNode{
         leftOperand.execute();
         rightOperand.execute();
 
+        // get string representation of left operand value
         String left;
         if(leftOperand instanceof IDNode) {
             String currentFunc = SymbolTable.currentCalledFunc.peek();
@@ -153,6 +154,7 @@ public class MathopNode  implements ExpressionNode{
         } else {
             left = SymbolTable.vals.get(leftOperand);
         }
+        // get string representation of right operand value
         String right;
         if(rightOperand instanceof IDNode) {
             String currentFunc = SymbolTable.currentCalledFunc.peek();
@@ -162,47 +164,25 @@ public class MathopNode  implements ExpressionNode{
             right = SymbolTable.vals.get(rightOperand);
         }
 
-        //this might be a problem. Can we use MathopType()?
+        // MathopType is good to use here
         if (this.MathopType().equals("Integer")) {
             Integer result = null;
             switch (math.getToken()) {
-                case "/":
-                    result = Integer.parseInt(left) / Integer.parseInt(right);
-                    break;
-                case "*":
-                    result = Integer.parseInt(left) * Integer.parseInt(right);
-                    break;
-                case "+":
-                    result = Integer.parseInt(left) + Integer.parseInt(right);
-                    break;
-                case "-":
-                    result = Integer.parseInt(left) - Integer.parseInt(right);
-                    break;
+                case "/": result = Integer.parseInt(left) / Integer.parseInt(right); break;
+                case "*": result = Integer.parseInt(left) * Integer.parseInt(right); break;
+                case "+": result = Integer.parseInt(left) + Integer.parseInt(right); break;
+                case "-": result = Integer.parseInt(left) - Integer.parseInt(right); break;
             }
             SymbolTable.vals.put(this, result.toString());
-            
         } else {
             Double result = null;
             switch (math.getToken()) {
-                case "/":
-                    result = Double.parseDouble(left) / Double.parseDouble(right);
-                    break;
-                case "*":
-                    result = Double.parseDouble(left) * Double.parseDouble(right);
-                    break;
-                case "+":
-                    result = Double.parseDouble(left) + Double.parseDouble(right);
-                    break;
-                case "-":
-                    result = Double.parseDouble(left) - Double.parseDouble(right);
-                    break;
+                case "/": result = Double.parseDouble(left) / Double.parseDouble(right); break;
+                case "*": result = Double.parseDouble(left) * Double.parseDouble(right); break;
+                case "+": result = Double.parseDouble(left) + Double.parseDouble(right); break;
+                case "-": result = Double.parseDouble(left) - Double.parseDouble(right); break;
             }
             SymbolTable.vals.put(this, result.toString());
         }
-        
-        
     }
-
-
-
 }
