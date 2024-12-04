@@ -36,6 +36,6 @@ public class TypeNode implements JottTree {
     }
 
     public void execute() {
-
+        SymbolTable.vals.put(this, type.getToken());
     }
 }

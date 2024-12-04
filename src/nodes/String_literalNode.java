@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -42,6 +43,6 @@ public class String_literalNode  implements ExpressionNode{
     }
 
     public void execute() {
-
+        SymbolTable.vals.put(this, strLit.getToken());
     }
 }
