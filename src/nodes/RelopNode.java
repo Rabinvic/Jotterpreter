@@ -144,6 +144,7 @@ public class RelopNode  implements ExpressionNode{
         leftOperand.execute();
         rightOperand.execute();
 
+        // get string representation of left operand value
         String left;
         if(leftOperand instanceof IDNode) {
             String currentFunc = SymbolTable.currentCalledFunc.peek();
@@ -152,6 +153,7 @@ public class RelopNode  implements ExpressionNode{
         } else {
             left = SymbolTable.vals.get(leftOperand);
         }
+        // get string representation of right operand value
         String right;
         if(rightOperand instanceof IDNode) {
             String currentFunc = SymbolTable.currentCalledFunc.peek();
@@ -163,25 +165,14 @@ public class RelopNode  implements ExpressionNode{
 
         Boolean result = null;
         switch (relation.getToken()) {
-            case "!=":
-                result = Double.parseDouble(left) != Double.parseDouble(right);
-                break;
-            case "==":
-                result = Double.parseDouble(left) == Double.parseDouble(right);
-                break;
-            case "<=":
-                result = Double.parseDouble(left) <= Double.parseDouble(right);
-                break;
-            case ">=":
-                result = Double.parseDouble(left) >= Double.parseDouble(right);
-                break;
-            case "<":
-                result = Double.parseDouble(left) < Double.parseDouble(right);
-                break;
-            case ">":
-                result = Double.parseDouble(left) > Double.parseDouble(right);
-                break;
+            case "!=": result = Double.parseDouble(left) != Double.parseDouble(right); break;
+            case "==": result = Double.parseDouble(left) == Double.parseDouble(right); break;
+            case "<=": result = Double.parseDouble(left) <= Double.parseDouble(right); break;
+            case ">=": result = Double.parseDouble(left) >= Double.parseDouble(right); break;
+            case "<": result = Double.parseDouble(left) < Double.parseDouble(right); break;
+            case ">": result = Double.parseDouble(left) > Double.parseDouble(right); break;
         }
+        
         SymbolTable.vals.put(this, result.toString());
     }
 

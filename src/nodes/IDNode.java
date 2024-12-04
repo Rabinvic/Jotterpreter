@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -51,7 +52,11 @@ public class IDNode implements OperandNode{
     }
 
     public void execute(){
-
+        String currentFunc = SymbolTable.currentCalledFunc.peek();
+        String idStr = this.getID();
+        String value = SymbolTable.fbodys.get(currentFunc).varValues.get(idStr);
+        // add current value of id in scope to the symbol table
+        SymbolTable.vals.put(this, value);
     }
 
 }
