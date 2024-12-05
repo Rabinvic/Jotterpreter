@@ -69,7 +69,7 @@ public class Var_DecNode implements JottTree {
         SymbolTable.addLocalVar(varType, id.getID());
         return true;
     }
-    public void execute(){
 
-    }
+    // done (?)
+    public void execute() {}
 }
