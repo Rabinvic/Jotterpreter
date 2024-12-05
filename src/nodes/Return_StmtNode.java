@@ -133,6 +133,9 @@ public class Return_StmtNode implements JottTree{
     }
 
     public void execute() {
+        if(exp == null) {
+            return;
+        }
         exp.execute();
         if(exp instanceof RelopNode) {
             SymbolTable.vals.put(this, SymbolTable.vals.get((RelopNode)exp));
