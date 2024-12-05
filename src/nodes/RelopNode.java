@@ -158,7 +158,12 @@ public class RelopNode  implements ExpressionNode{
         if(rightOperand instanceof IDNode) {
             String currentFunc = SymbolTable.currentCalledFunc.peek();
             String idOfOperand = ((IDNode)rightOperand).getID();
-            right = SymbolTable.fbodys.get(currentFunc).varValues.get(idOfOperand);
+            if(SymbolTable.fbodys.get(currentFunc).varValues.get(idOfOperand) != null) {
+                right = SymbolTable.fbodys.get(currentFunc).varValues.get(idOfOperand);
+            } else {
+                System.out.println("runtime error variable used before being assigned a value");
+                return;
+            }
         } else {
             right = SymbolTable.vals.get(rightOperand);
         }

@@ -47,7 +47,11 @@ public class ParamsTNode implements JottTree{
 
     public String returnParam() {
         if(expr instanceof IDNode) {
-            return SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+            if(SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID()) != null) {
+                return SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+            } else {
+                System.out.println("runtime error variable used before being assigned a value");
+            }
         }
         return SymbolTable.vals.get(expr);
     }

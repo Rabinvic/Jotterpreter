@@ -150,7 +150,11 @@ public class Return_StmtNode implements JottTree{
         } else if(exp instanceof NumberNode) {
             SymbolTable.vals.put(this, SymbolTable.vals.get((NumberNode)exp));
         } else {
-            SymbolTable.vals.put(this, SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)exp).getID()));
+            if(SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)exp).getID()) != null) {
+                SymbolTable.vals.put(this, SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)exp).getID()));
+            } else {
+                System.out.println("runtime error variable used before being assigned a value");
+            }
         }
     }
 }
