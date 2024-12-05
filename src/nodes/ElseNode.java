@@ -81,6 +81,9 @@ public class ElseNode implements Body_StmtNode{
         return true;
     }
     public void execute(){
+        if(body == null) {
+            return;
+        }
         body.execute();
     }
 
