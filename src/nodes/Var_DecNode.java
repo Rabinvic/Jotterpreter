@@ -70,6 +70,6 @@ public class Var_DecNode implements JottTree {
         return true;
     }
     public void execute(){
-
+        SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.put(id.getID(), null);
     }
 }
