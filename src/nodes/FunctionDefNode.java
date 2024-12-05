@@ -168,6 +168,14 @@ public class FunctionDefNode implements JottTree {
     }
 
     public void execute() {
+        fdp.execute();
+        fr.execute();
+        if(id.getID().equals("main")) {
+            fbody.execute();
+        } else {
+            SymbolTable.fbodys.put(id.getID(), fbody);
+            SymbolTable.funcParamNames.put(id.getID(), fdp.returnParamNames());
+        }
 
     }
 }

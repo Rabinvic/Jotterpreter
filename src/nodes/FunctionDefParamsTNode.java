@@ -66,4 +66,8 @@ public class FunctionDefParamsTNode implements JottTree{
     public void execute() {
 
     }
+
+    public String returnParamName() {
+        return id.getID();
+    }
 }

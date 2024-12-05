@@ -38,6 +38,21 @@ public class FunctionDefParamsNode implements JottTree{
     public void execute() {
 
     }
+
+    public ArrayList<String> returnParamNames() {
+        if(type == null && id == null && paramTs == null) {
+            return null;
+        }
+        ArrayList<String> paramNames = new ArrayList<String>();
+        paramNames.add(id.getID());
+        if(paramTs == null) {
+            return paramNames;
+        }
+        for (FunctionDefParamsTNode defParam : paramTs) {
+            paramNames.add(defParam.returnParamName());
+        }
+        return paramNames;
+    }
     
     public static FunctionDefParamsNode parseParamsNode(ArrayList<Token> tokens) {
         // < id >:< type >< function_def_params_t >⋆ | ε
