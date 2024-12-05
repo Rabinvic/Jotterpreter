@@ -1,6 +1,7 @@
 package nodes;
 import java.util.ArrayList;
 
+import provided.SymbolTable;
 import provided.Token;
 import provided.TokenType;
 
@@ -36,7 +37,7 @@ public class BoolNode implements ExpressionNode {
     }
 
     public void execute() {
-
+        SymbolTable.vals.put(this, bool.getToken());
     }
 
     public String getFilename() {

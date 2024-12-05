@@ -173,7 +173,11 @@ public class RelopNode  implements ExpressionNode{
             case ">": result = Double.parseDouble(left) > Double.parseDouble(right); break;
         }
         
-        SymbolTable.vals.put(this, result.toString());
+        // capitalize first letter: "True" or "False" instead of "true" or "false"
+        // (this matches how we store boolNodes in the symbol table)
+        String resultString = String.valueOf(result.toString().charAt(0)).toUpperCase()
+                            + result.toString().substring(1);
+        SymbolTable.vals.put(this, resultString);
     }
 
     public String getFilename() {

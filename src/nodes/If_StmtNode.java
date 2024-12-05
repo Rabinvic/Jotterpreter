@@ -193,6 +193,19 @@ public class If_StmtNode implements Body_StmtNode{
         return true;
     }
     public void execute(){
+        expr.execute();
 
+        if (SymbolTable.vals.get(expr).equals("True")) {
+            body.execute();
+        } else {
+            for (ElseIfNode elseIf : elseIfs) {
+                elseIf.execute();
+                if (SymbolTable.vals.get(elseIf).equals("True")) {
+                    return; // short circuit; don't check other elseIf's
+                }
+            }
+            // niether the if nor any elseIf's were true.
+            els.execute();
+        }
     }
 }

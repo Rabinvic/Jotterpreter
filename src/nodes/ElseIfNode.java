@@ -122,7 +122,14 @@ public class ElseIfNode implements Body_StmtNode{
         return true;
     }
     public void execute(){
-
+        expr.execute();
+    
+        if (SymbolTable.vals.get(expr).equals("True")) {
+            body.execute();
+            SymbolTable.vals.put(this, "True");
+        } else {
+            SymbolTable.vals.put(this, "False");
+        }
     }
 
     public boolean elseIfContainsReturn() {

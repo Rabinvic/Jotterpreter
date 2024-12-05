@@ -81,7 +81,7 @@ public class ElseNode implements Body_StmtNode{
         return true;
     }
     public void execute(){
-
+        body.execute();
     }
 
     public boolean ElseContainsReturn() {
