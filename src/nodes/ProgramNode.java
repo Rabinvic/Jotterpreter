@@ -68,6 +68,8 @@ public class ProgramNode implements JottTree {
     }
 
     public void execute() {
-
+        for(int i=0; i<funcdefs.size(); i++) {
+            funcdefs.get(i).execute();
+        }
     }
 }
