@@ -82,7 +82,12 @@ public class MathopNode  implements ExpressionNode{
         } else if (leftOperand instanceof IDNode) {
             leftType = SymbolTable.getLocalSymTable().get(((IDNode)leftOperand).getID());
         } else { // left operand is a function call
-            leftType = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
+            if (((FunctionCallNode)leftOperand).getFuncName().equals("length")){
+                leftType = "Integer";
+            } else {
+                leftType = SymbolTable.getFunctionReturn(((FunctionCallNode)leftOperand).getFuncName());
+            }
+            
         }
 
         // invalid if left operand is a string, boolean, or void

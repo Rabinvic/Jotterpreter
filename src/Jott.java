@@ -34,6 +34,8 @@ public class Jott {
         if(!tokenTree.validateTree()){
             return;
         }
+
+        tokenTree.execute();
         
     }
 }

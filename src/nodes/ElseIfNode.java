@@ -49,12 +49,16 @@ public class ElseIfNode implements Body_StmtNode{
             return null;
         }
 
+        tokens.remove(0);
+
         // {
         if(tokens.get(0).getTokenType() != TokenType.L_BRACE) {
             System.err.println("Syntax Error:\n missing ''{' in Elseif\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+
+        tokens.remove(0);
 
         // < body >
         BodyNode body = BodyNode.parseBodyNode(tokens);
@@ -68,6 +72,8 @@ public class ElseIfNode implements Body_StmtNode{
             tokens.get(0).getLineNum() + "\n");
             return null;
         }
+
+        tokens.remove(0);
 
         return new ElseIfNode(expr, body);
     }

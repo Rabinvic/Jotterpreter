@@ -91,6 +91,24 @@ public class AsmtNode implements Body_StmtNode{
                     return false;
                 }
             } else if(expr instanceof FunctionCallNode) {
+                if (((FunctionCallNode)expr).getFuncName().equals("length")) {
+                    if (!varType.equals("Integer")){
+                        System.err.println("Semantic Error:\n" + "variable type doesn't match type Integer\n" +
+                        id.getFilename() + ":" + id.getLineNum());
+                        return false;
+                    }
+                    return true;
+                }
+
+                if (((FunctionCallNode)expr).getFuncName().equals("concat")) {
+                    if (!varType.equals("String")){
+                        System.err.println("Semantic Error:\n" + "variable type doesn't match type String\n" +
+                        id.getFilename() + ":" + id.getLineNum());
+                        return false;
+                    }
+                    return true;                   
+                }
+
                 if(!SymbolTable.getFunctionReturn(((FunctionCallNode)expr).getFuncName()).equals(varType)) {
                     System.err.println("Semantic Error:\n" + "variable type doesn't match expression type\n" +
                     id.getFilename() + ":" + id.getLineNum());

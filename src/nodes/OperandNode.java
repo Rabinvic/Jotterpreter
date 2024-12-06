@@ -10,7 +10,8 @@ public interface OperandNode extends ExpressionNode{
             System.err.print("Syntax Error:\n no tokens to parse\n");
             return null;
         }
-        if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD) {
+        if(tokens.get(0).getTokenType() == TokenType.ID_KEYWORD && !(tokens.get(0).getToken().equals("length") ||
+        tokens.get(0).getToken().equals("concat") || tokens.get(0).getToken().equals("print"))) {
             IDNode id = IDNode.parseIDNode(tokens);
             if(id == null) {
                 return null;
@@ -40,7 +41,7 @@ public interface OperandNode extends ExpressionNode{
             } 
             return num;     
         } else {
-            System.err.println("Syntax Error:\n not an operand\n" + tokens.get(0).getFilename() + ":" + 
+            System.err.println("Syntax Error:\n Invalid operand\n" + tokens.get(0).getFilename() + ":" + 
             tokens.get(0).getLineNum() + "\n");
             return null;
         }

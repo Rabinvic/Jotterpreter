@@ -24,6 +24,9 @@ public class ParamsNode implements JottTree{
             params.add(expr);
             return params;
         }
+
+        params.add(expr);
+
         for(ParamsTNode param: paramTs) {
             params.add(param.paramsTHelper());
         }
