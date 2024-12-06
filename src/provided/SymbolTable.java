@@ -28,6 +28,8 @@ public class SymbolTable {
     //stores <Function Name, [param name1, param name2,...]>
     public static HashMap<String, ArrayList<String>> funcParamNames = new HashMap<String, ArrayList<String>>();
 
+    // public static HashMap<JottTree, Boolean> foundReturn = new HashMap<JottTree, Boolean>();
+
     public static void addFunction(String functionName, String returnType, ArrayList<String> params, String filename, int linenum){
         funcTypes.put(functionName, returnType);
         funcParamTypes.put(functionName, params);

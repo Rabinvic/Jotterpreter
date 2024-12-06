@@ -82,13 +82,17 @@ public class BodyNode implements JottTree{
             for(int i = 0; i < bodyStmts.size(); i++) {
                 if(bodyStmts.get(i) instanceof If_StmtNode) {
                     if(!((If_StmtNode)bodyStmts.get(i)).hasReturn()) {
-                        System.err.println("Semantic Error:\n" +SymbolTable.currentFunc + "missing a return statement\n" +
-                                       SymbolTable.funcFile + ":" + SymbolTable.funcLine);
-                        return false;
+                        // System.err.println("Semantic Error:\n" +SymbolTable.currentFunc + " missing a return statement\n" +
+                        //                SymbolTable.funcFile + ":" + SymbolTable.funcLine);
+                        // return false;
+                        //SymbolTable.foundReturn.put(this, false);
                     }
                 }
             }
         }
+
+        //SymbolTable.foundReturn.put(this, true);
+
         return true;
     }
 

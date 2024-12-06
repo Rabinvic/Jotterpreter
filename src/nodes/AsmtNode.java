@@ -66,7 +66,7 @@ public class AsmtNode implements Body_StmtNode{
             return false;
         }
         if(expr instanceof String_literalNode) {
-            if(varType != "String") {
+            if(!varType.equals("String")) {
                 System.err.println("Semantic Error:\n" + "String variable cannot be assigned a non string value\n" +
                 id.getFilename() + ":" + id.getLineNum());
                 return false;

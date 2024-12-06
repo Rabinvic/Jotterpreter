@@ -274,22 +274,22 @@ public class FunctionCallNode implements OperandNode, Body_StmtNode{
     public void execute() {
         params.execute();
         if(name.getID().equals("print")) {
-            System.out.println(params.returnParams().get(0));
+            System.out.println(params.returnParams().get(0).replace("\"", ""));
             return;
         }
         if(name.getID().equals("concat")) {
             ArrayList<String> parameters = params.returnParams();
-            SymbolTable.vals.put(this, parameters.get(0) + parameters.get(1));
+            SymbolTable.vals.put(this, (parameters.get(0) + parameters.get(1)));
             return;
         }
         if(name.getID().equals("length")) {
             ArrayList<String> parameters = params.returnParams();
-            SymbolTable.vals.put(this, String.valueOf(parameters.get(0).length()));
+            SymbolTable.vals.put(this, String.valueOf(parameters.get(0).replace("\"", "").length()));
             return;
         }
         //name.execute();
         if(params.returnParams() != null) {
-            for (int i = 0; i < SymbolTable.funcParamNames.size(); i++) {
+            for (int i = 0; i < SymbolTable.funcParamNames.get(name.getID()).size(); i++) {
                 SymbolTable.fbodys.get(name.getID()).varValues.put(SymbolTable.funcParamNames.get(name.getID()).get(i), params.returnParams().get(i));
             }
         }

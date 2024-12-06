@@ -171,6 +171,8 @@ public class FunctionDefNode implements JottTree {
         fdp.execute();
         fr.execute();
         if(id.getID().equals("main")) {
+            SymbolTable.currentCalledFunc.push(id.getID());
+            SymbolTable.fbodys.put(id.getID(), fbody);
             fbody.execute();
         } else {
             SymbolTable.fbodys.put(id.getID(), fbody);
