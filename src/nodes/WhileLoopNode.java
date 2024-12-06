@@ -119,10 +119,27 @@ public class WhileLoopNode implements Body_StmtNode{
         return true;
     }
     public void execute() {
-        expr.execute();
-        while (SymbolTable.vals.get(expr).equals("True")) {
+        String exprVal = "";
+        if (expr instanceof IDNode) {
+            if(SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID()) == null) {
+                System.err.println("Runtime Error:\n" + "variable " + ((IDNode)expr).getID() + " not initialized\n" +
+                ((IDNode)expr).getFilename() + ":" + ((IDNode)expr).getLineNum());
+                return;
+            }
+            expr.execute();
+            exprVal = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+        } else {
+            expr.execute();
+            exprVal = SymbolTable.vals.get(expr);
+        }
+        
+        while (exprVal.equals("True")) {
             body.execute();
             expr.execute();
+            if (expr instanceof IDNode)
+                exprVal = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+            else
+                exprVal = SymbolTable.vals.get(expr);
         }
     }
 }

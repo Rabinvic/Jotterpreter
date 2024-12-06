@@ -193,9 +193,21 @@ public class If_StmtNode implements Body_StmtNode{
         return true;
     }
     public void execute(){
-        expr.execute();
-
-        if (SymbolTable.vals.get(expr).equals("True")) {
+        String exprVal = "";
+        if (expr instanceof IDNode) {
+            if(SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID()) == null) {
+                System.err.println("Runtime Error:\n" + "variable " + ((IDNode)expr).getID() + " not initialized\n" +
+                ((IDNode)expr).getFilename() + ":" + ((IDNode)expr).getLineNum());
+                return;
+            }
+            expr.execute();
+            exprVal = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+        } else {
+            expr.execute();
+            exprVal = SymbolTable.vals.get(expr);
+        }
+        
+        if (exprVal.equals("True")) {
             body.execute();
         } else {
             for (ElseIfNode elseIf : elseIfs) {
