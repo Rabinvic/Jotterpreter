@@ -119,6 +119,10 @@ public class WhileLoopNode implements Body_StmtNode{
         return true;
     }
     public void execute() {
-        
+        expr.execute();
+        while (SymbolTable.vals.get(expr).equals("True")) {
+            body.execute();
+            expr.execute();
+        }
     }
 }
