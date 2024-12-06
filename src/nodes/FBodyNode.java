@@ -93,6 +93,11 @@ public class FBodyNode implements JottTree {
     }
 
     public void execute() {
-
+        for(int i=0; i<vardecs.size(); i++) {
+            vardecs.get(i).execute();
+        }
+        body.execute();
+        String value = SymbolTable.vals.get(body);
+        SymbolTable.vals.put(this, value);
     }
 }
