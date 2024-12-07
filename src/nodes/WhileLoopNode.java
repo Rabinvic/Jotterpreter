@@ -140,6 +140,9 @@ public class WhileLoopNode implements Body_StmtNode{
                 exprVal = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
             else
                 exprVal = SymbolTable.vals.get(expr);
+            if(SymbolTable.vals.containsKey(body)) {
+                SymbolTable.vals.put(this, SymbolTable.vals.get(body));
+            }
         }
     }
 }

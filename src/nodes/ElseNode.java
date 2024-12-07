@@ -85,6 +85,9 @@ public class ElseNode implements Body_StmtNode{
             return;
         }
         body.execute();
+        if(SymbolTable.vals.containsKey(body)) {
+            SymbolTable.vals.put(this, SymbolTable.vals.get(body));
+        }
     }
 
     public boolean ElseContainsReturn() {

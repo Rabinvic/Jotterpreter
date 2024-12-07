@@ -144,9 +144,27 @@ public class ElseIfNode implements Body_StmtNode{
     
         if (exprVal.equals("True")) {
             body.execute();
-            SymbolTable.vals.put(this, "True");
+            if(SymbolTable.vals.containsKey(body)) {
+                SymbolTable.vals.put(this, SymbolTable.vals.get(body));
+            }
+            //SymbolTable.vals.put(this, "True");
         } else {
-            SymbolTable.vals.put(this, "False");
+            //SymbolTable.vals.put(this, "False");
+        }
+    }
+
+    public boolean ElseIfExecute() {
+        String exprVal = "";
+        if(expr instanceof IDNode) {
+            exprVal = SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
+            
+        } else {
+            exprVal = SymbolTable.vals.get(expr);
+        }
+        if(exprVal.equals("True")) {
+            return true;
+        } else {
+            return false;
         }
     }
 

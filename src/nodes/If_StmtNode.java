@@ -209,15 +209,20 @@ public class If_StmtNode implements Body_StmtNode{
         
         if (exprVal.equals("True")) {
             body.execute();
+            if(SymbolTable.vals.containsKey(body)) {
+                SymbolTable.vals.put(this, SymbolTable.vals.get(body));
+            }
         } else {
             for (ElseIfNode elseIf : elseIfs) {
                 elseIf.execute();
-                if (SymbolTable.vals.get(elseIf).equals("True")) {
+                if (elseIf.ElseIfExecute()) {
+                    SymbolTable.vals.put(this, SymbolTable.vals.get(elseIf));
                     return; // short circuit; don't check other elseIf's
                 }
             }
             // niether the if nor any elseIf's were true.
             els.execute();
+            SymbolTable.vals.put(this, SymbolTable.vals.get(els));
         }
     }
 }
