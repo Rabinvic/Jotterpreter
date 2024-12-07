@@ -131,17 +131,17 @@ public class BodyNode implements JottTree{
     }
 
     public void execute() {
-        returnStmt.execute();
         for(int i=0; i<bodyStmts.size(); i++) {
             bodyStmts.get(i).execute();
             if(bodyStmts.get(i) instanceof If_StmtNode || bodyStmts.get(i) instanceof WhileLoopNode) {
-               if(SymbolTable.vals.containsKey(bodyStmts.get(i))) {
+               if(SymbolTable.vals.containsKey(bodyStmts.get(i)) && SymbolTable.vals.get(bodyStmts.get(i)) != null) {
                 String value = SymbolTable.vals.get(bodyStmts.get(i));
                 SymbolTable.vals.put(this, value);
                 return;
                }
             } 
         }
+        returnStmt.execute();
         String value = SymbolTable.vals.get(returnStmt);
         SymbolTable.vals.put(this, value);
     }
