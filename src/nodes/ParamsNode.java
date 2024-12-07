@@ -86,6 +86,7 @@ public class ParamsNode implements JottTree{
                 paramValues.add(SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID()));
             } else {
                 System.out.println("runtime error variable used before being assigned a value");
+                return null;
             }
         } else {
             paramValues.add(SymbolTable.vals.get(expr));
@@ -94,7 +95,9 @@ public class ParamsNode implements JottTree{
             return paramValues;
         }
         for(ParamsTNode param: paramTs) {
-            paramValues.add(param.returnParam());
+            if(param.returnParam() != null) {
+                paramValues.add(param.returnParam());
+            }
         }
         return paramValues;
     }

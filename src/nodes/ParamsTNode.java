@@ -51,6 +51,7 @@ public class ParamsTNode implements JottTree{
                 return SymbolTable.fbodys.get(SymbolTable.currentCalledFunc.peek()).varValues.get(((IDNode)expr).getID());
             } else {
                 System.out.println("runtime error variable used before being assigned a value");
+                return null;
             }
         }
         return SymbolTable.vals.get(expr);
