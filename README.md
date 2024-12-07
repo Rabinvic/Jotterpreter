@@ -11,3 +11,8 @@
     On Windows: ./phase3tester.bat
     On Unix/Mac: ./phase3tester.sh
  These will run all test .jott files for this phase, if you would like to use them.
+
+ Phase 4: We added some more hashmaps to SymbolTable.java to help with scoping, initializing
+ variables, and dealing with values. Jott.java now executes the program node which kicks off
+ the execution of the entire decorated parse tree. We also added the reallyLong.jott file
+ found on myCourses to the root directory for testing.
